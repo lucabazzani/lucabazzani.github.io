@@ -1,0 +1,386 @@
+/* ==========================================================================
+   1. VARIABLES Y ESTILOS GLOBALES -- EL CÓDIGO FUENTE DE LA MATRIX
+   ========================================================================== */
+
+:root {
+    /* Paleta de Colores "Matrix" */
+    --color-matrix-green: #00ff41;
+    --color-background: #0d0d0d;
+    --color-text-primary: #e0e0e0;
+    --color-text-secondary: #a0a0a0;
+    --color-border: rgba(0, 255, 65, 0.2);
+
+    /* Tipografía */
+    --font-titles: 'Stack Sans Notch', sans-serif;
+    --font-text: 'Roboto Mono', monospace;
+
+    /* Otros */
+    --container-width: 1100px;
+    --transition-speed: 0.3s ease;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+    font-family: var(--font-text);
+    line-height: 1.6;
+    overflow-x: hidden; /* Evita el desbordamiento horizontal */
+}
+
+h1, h2, h3 {
+    font-family: var(--font-titles);
+    color: var(--color-matrix-green);
+    font-weight: 500;
+}
+
+a {
+    color: var(--color-matrix-green);
+    text-decoration: none;
+}
+
+/* ==========================================================================
+   2. HERO SECTION -- BIENVENIDO A LA MATRIX
+   ========================================================================== */
+
+#hero {
+    position: relative; /* Clave para posicionar el contenido sobre el canvas */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 2rem;
+    overflow: hidden; /* Oculta cualquier cosa que se desborde */
+}
+
+#matrix-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* Detrás del contenido */
+    opacity: 0.3;
+}
+
+.hero__content {
+    position: relative;
+    z-index: 2; /* Enfrente del canvas */
+    max-width: 800px;
+}
+
+.hero__title {
+    font-size: 3.5rem; /* Tamaño para desktop */
+    font-weight: 700;
+    margin-bottom: 1rem;
+    min-height: 5rem; /* Espacio para que el texto no salte */
+}
+
+.hero__title .cursor {
+    animation: blink 1s infinite;
+}
+
+.hero__subtitle {
+    font-size: 1.1rem;
+    color: var(--color-text-secondary);
+    max-width: 600px;
+    margin: 0 auto 2rem auto;
+}
+
+.hero__cta-button {
+    font-family: var(--font-titles);
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.8rem 2.5rem;
+    border: 2px solid var(--color-matrix-green);
+    border-radius: 5px;
+    transition: var(--transition-speed);
+}
+
+.hero__cta-button:hover {
+    background-color: var(--color-matrix-green);
+    color: var(--color-background);
+    box-shadow: 0 0 20px var(--color-matrix-green);
+}
+
+/* ==========================================================================
+   3. CLASES DE UTILIDAD Y COMPONENTES
+   ========================================================================== */
+
+.container {
+    width: 100%;
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background-color: var(--color-matrix-green);
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-center::after {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+/* ==========================================================================
+   4. SECCIÓN SOBRE MÍ -- EL CONSTRUCTOR
+   ========================================================================== */
+
+#about {
+    padding: 6rem 0;
+    background-color: #101010; /* Un fondo ligeramente distinto para separar */
+}
+
+.about__container {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+}
+
+.about__left {
+    flex-basis: 35%;
+}
+
+.about__avatar {
+    width: 100%;
+    border-radius: 50%;
+    border: 5px solid var(--color-matrix-green);
+    box-shadow: 0 0 30px rgba(0, 255, 65, 0.5);
+}
+
+.about__right {
+    flex-basis: 65%;
+}
+
+.about__text {
+    color: var(--color-text-secondary);
+    margin-bottom: 2.5rem;
+}
+
+.about__principles {
+    list-style: none;
+}
+
+.about__principles li {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+}
+
+.about__principles i {
+    font-size: 1.5rem;
+    color: var(--color-matrix-green);
+    margin-right: 1.5rem;
+    margin-top: 5px;
+    min-width: 25px; /* Para alinear el texto */
+}
+
+.about__principles h3 {
+    color: var(--color-text-primary);
+    margin-bottom: 0.2rem;
+}
+
+.about__principles p {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+}
+
+/* ==========================================================================
+   5. SECCIÓN TECH STACK -- EL ARSENAL
+   ========================================================================== */
+
+#tech-stack {
+    padding: 6rem 0;
+}
+
+.tech-stack__scroller {
+    max-width: 100%;
+    overflow: hidden;
+    -webkit-mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
+    mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
+}
+
+.tech-stack__scroller .tech-stack__list {
+    display: flex;
+    flex-wrap: nowrap;
+    width: max-content;
+    animation: scroll 40s linear infinite;
+}
+
+.tech-stack__scroller:hover .tech-stack__list {
+    animation-play-state: paused;
+}
+
+.tech-stack__list img {
+    height: 60px; /* Tamaño de los iconos */
+    margin: 0 2rem;
+    transition: var(--transition-speed);
+    filter: grayscale(80%) opacity(0.7);
+}
+
+.tech-stack__list img:hover {
+    transform: scale(1.1);
+    filter: grayscale(0%) opacity(1);
+}
+
+/* ==========================================================================
+   6. SECCIÓN PROYECTOS -- EL ESCAPARATE
+   ========================================================================== */
+
+#proyectos {
+    padding: 6rem 0;
+    background-color: #101010;
+}
+
+.projects__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+}
+
+.project-card {
+    background-color: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: var(--transition-speed);
+    display: flex;
+    flex-direction: column;
+}
+
+.project-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0, 255, 65, 0.2);
+}
+
+.project-card__image-container {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.project-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.project-card:hover .project-card__image {
+    transform: scale(1.05);
+}
+
+.project-card__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(13, 13, 13, 0.8), transparent);
+}
+
+.project-card__content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Permite que el contenido ocupe el espacio disponible */
+}
+
+.project-card__title {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.project-card__description {
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+    flex-grow: 1; /* Empuja las techs al fondo */
+    margin-bottom: 1.5rem;
+}
+
+.project-card__tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.project-card__tech span {
+    background-color: rgba(0, 255, 65, 0.1);
+    color: var(--color-matrix-green);
+    font-family: var(--font-text);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.3rem 0.7rem;
+    border-radius: 20px;
+}
+
+/* ==========================================================================
+   7. SECCIÓN CONTACTO -- LA SALIDA
+   ========================================================================== */
+
+#contacto {
+    padding: 8rem 0;
+    text-align: center;
+}
+
+.contacto__subtitle {
+    max-width: 600px;
+    margin: 0 auto 3rem auto;
+    color: var(--color-text-secondary);
+    font-size: 1.1rem;
+}
+
+.contacto__links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.contacto__button {
+    transition: var(--transition-speed);
+}
+
+.contacto__button:hover {
+    transform: scale(1.1);
+}
+
+/* ==========================================================================
+   8. FOOTER
+   ========================================================================== */
+   
+footer {
+    padding: 2rem 0;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    border-top: 1px solid var(--color-border);
+}
