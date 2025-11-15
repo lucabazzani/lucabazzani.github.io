@@ -10,6 +10,13 @@
     --color-text-secondary: #a0a0a0;
     --color-border: rgba(0, 255, 65, 0.2);
 
+    /* Paleta de Colores "AlgoDev" (Tema Claro) */
+    --color-algodev-blue: #007bff;
+    --color-background-light: #ffffff;
+    --color-text-primary-light: #212529;
+    --color-text-secondary-light: #6c757d;
+    --color-border-light: rgba(0, 123, 255, 0.2);
+
     /* Tipografía */
     --font-titles: 'Stack Sans Notch', sans-serif;
     --font-text: 'Roboto Mono', monospace;
@@ -19,368 +26,479 @@
     --transition-speed: 0.3s ease;
 }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
+/* ... Estilos base (box-sizing, html, body sin cambios) ... */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
 body {
     background-color: var(--color-background);
     color: var(--color-text-primary);
     font-family: var(--font-text);
     line-height: 1.6;
-    overflow-x: hidden; /* Evita el desbordamiento horizontal */
+    overflow-x: hidden;
 }
+h1, h2, h3 { font-family: var(--font-titles); color: var(--color-matrix-green); font-weight: 500; }
+a { color: var(--color-matrix-green); text-decoration: none; }
+button { font-family: inherit; } /* Heredar fuente para botones */
 
-h1, h2, h3 {
-    font-family: var(--font-titles);
-    color: var(--color-matrix-green);
-    font-weight: 500;
-}
-
-a {
-    color: var(--color-matrix-green);
-    text-decoration: none;
-}
 
 /* ==========================================================================
-   2. HERO SECTION -- BIENVENIDO A LA MATRIX
+   2. HERO SECTION -- TERMINAL INTERACTIVA (Refinado)
    ========================================================================== */
+#hero { /* Sin cambios */
+    height: 100vh; padding: 1.5rem; display: flex;
+    align-items: center; justify-content: center;
+}
+.terminal-frame { /* Sin cambios */
+    width: 100%; height: 100%; border: 1px solid var(--color-border);
+    background-color: rgba(13, 13, 13, 0.85); backdrop-filter: blur(5px);
+    border-radius: 8px; display: flex; flex-direction: column;
+    overflow: hidden; position: relative;
+    box-shadow: 0 0 40px rgba(0, 255, 65, 0.1);
+}
+.terminal-header { /* Sin cambios */
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.75rem 1rem; background-color: #1a1a1a;
+    border-bottom: 1px solid var(--color-border); flex-shrink: 0;
+}
+.terminal-buttons span { /* Sin cambios */
+    display: inline-block; width: 12px; height: 12px;
+    border-radius: 50%; margin-right: 8px;
+}
+.terminal-buttons .red { background-color: #ff5f56; }
+.terminal-buttons .yellow { background-color: #ffbd2e; }
+.terminal-buttons .green { background-color: #27c93f; }
 
-#hero {
-    position: relative; /* Clave para posicionar el contenido sobre el canvas */
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.terminal-nav a, .terminal-nav button { /* 'button' añadido */
+    font-family: var(--font-text); color: var(--color-text-secondary);
+    background: none; border: none; cursor: pointer;
+    margin: 0 1rem; transition: var(--transition-speed); font-size: 1rem;
+}
+.terminal-nav a:hover, .terminal-nav button:hover { /* 'button' añadido */
+    color: var(--color-matrix-green);
+    text-shadow: 0 0 5px var(--color-matrix-green);
+}
+.terminal-easter-egg button { /* Nuevo */
+    background: none; border: none; cursor: pointer;
+    font-size: 1.2rem; color: var(--color-text-secondary);
+    transition: var(--transition-speed);
+}
+.terminal-easter-egg button:hover {
+    color: #fff;
+    filter: drop-shadow(0 0 5px #fff);
+}
+#matrix-canvas { /* Sin cambios */
+    position: absolute; top: 0; left: 0; width: 100%;
+    height: 100%; z-index: -1; opacity: 0.3;
+}
+.hero__content { /* Sin cambios */
+    flex-grow: 1; display: flex; flex-direction: column;
+    justify-content: center; align-items: center; padding: 2rem;
     text-align: center;
-    padding: 0 2rem;
-    overflow: hidden; /* Oculta cualquier cosa que se desborde */
+}
+.hero__title { /* min-height modificado */
+    font-size: 3.5rem; font-weight: 700;
+    min-height: 8rem; /* Espacio para dos líneas del Typed.js */
 }
 
-#matrix-canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1; /* Detrás del contenido */
-    opacity: 0.3;
-}
-
-.hero__content {
-    position: relative;
-    z-index: 2; /* Enfrente del canvas */
-    max-width: 800px;
-}
-
-.hero__title {
-    font-size: 3.5rem; /* Tamaño para desktop */
-    font-weight: 700;
-    margin-bottom: 1rem;
-    min-height: 5rem; /* Espacio para que el texto no salte */
-}
-
-.hero__title .cursor {
-    animation: blink 1s infinite;
-}
-
-.hero__subtitle {
+.hero__subtitle { /* NUEVO: Restaurado y estilizado */
     font-size: 1.1rem;
     color: var(--color-text-secondary);
     max-width: 600px;
-    margin: 0 auto 2rem auto;
+    margin: 1.5rem auto 0 auto;
+}
+.easter-egg-message { /* renombrado y estilizado */
+    font-family: var(--font-text);
+    color: var(--color-matrix-green);
+    margin-top: 1rem;
+    min-height: 24px;
+    font-size: 1.1rem;
 }
 
-.hero__cta-button {
-    font-family: var(--font-titles);
-    font-weight: 600;
-    font-size: 1rem;
-    padding: 0.8rem 2.5rem;
-    border: 2px solid var(--color-matrix-green);
-    border-radius: 5px;
-    transition: var(--transition-speed);
+/* ===== EFECTOS VISUALES PARA EASTER EGG (AÑADIR) ===== */
+
+/* Estilo que se aplica al título cuando el easter egg está activo */
+.hero__title.egg-active {
+    /* El !important asegura que este color sobreescriba el verde original */
+    color: #fc8168 !important; 
+    text-shadow: 0 0 10px #db5b41;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 
-.hero__cta-button:hover {
-    background-color: var(--color-matrix-green);
-    color: var(--color-background);
-    box-shadow: 0 0 20px var(--color-matrix-green);
+/* Estilo que se aplica al <body> para el efecto de glitch en toda la ventana */
+body.glitch-active .terminal-frame {
+    /* Utiliza la animación de glitch definida en animations.css */
+    animation: glitch-skew 0.5s 5;
+}
+
+/* Asegura que el cursor de Typed.js también se vuelva naranja */
+.hero__title.egg-active .typed-cursor {
+    color: #fc8168;
 }
 
 /* ==========================================================================
-   3. CLASES DE UTILIDAD Y COMPONENTES
+   3. CLASES DE UTILIDAD (Revisado)
    ========================================================================== */
-
-.container {
-    width: 100%;
-    max-width: var(--container-width);
-    margin: 0 auto;
-    padding: 0 2rem;
+.container { /* Sin cambios */
+    width: 100%; max-width: var(--container-width); margin: 0 auto; padding: 0 2rem;
 }
-
-.section-title {
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
-    position: relative;
-    padding-bottom: 0.5rem;
+.section-title { /* Transición añadida */
+    font-size: 2.5rem; margin-bottom: 2rem;
+    position: relative; padding-bottom: 0.5rem;
+    transition: color var(--transition-speed);
 }
-
-.section-title::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 50px;
-    height: 3px;
-    background-color: var(--color-matrix-green);
+.section-title::after { /* Transición añadida */
+    content: ''; position: absolute; bottom: 0; left: 0;
+    width: 50px; height: 3px; background-color: var(--color-matrix-green);
+    transition: background-color var(--transition-speed);
 }
-
-.text-center {
-    text-align: center;
-}
-
-.text-center::after {
-    left: 50%;
-    transform: translateX(-50%);
-}
-
+.text-center { text-align: center; }
+.text-center::after { left: 50%; transform: translateX(-50%); }
 
 /* ==========================================================================
-   4. SECCIÓN SOBRE MÍ -- EL CONSTRUCTOR
+   4. SECCIÓN SOBRE MÍ / EQUIPO (SOLUCIÓN FINALÍSIMA Y ROBUSTA)
    ========================================================================== */
 
 #about {
     padding: 6rem 0;
-    background-color: #101010; /* Un fondo ligeramente distinto para separar */
-}
-
-.about__container {
-    display: flex;
-    align-items: center;
-    gap: 4rem;
-}
-
-.about__left {
-    flex-basis: 35%;
-}
-
-.about__avatar {
-    width: 100%;
-    border-radius: 50%;
-    border: 5px solid var(--color-matrix-green);
-    box-shadow: 0 0 30px rgba(0, 255, 65, 0.5);
-}
-
-.about__right {
-    flex-basis: 65%;
-}
-
-.about__text {
-    color: var(--color-text-secondary);
-    margin-bottom: 2.5rem;
-}
-
-.about__principles {
-    list-style: none;
-}
-
-.about__principles li {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 1.5rem;
-}
-
-.about__principles i {
-    font-size: 1.5rem;
-    color: var(--color-matrix-green);
-    margin-right: 1.5rem;
-    margin-top: 5px;
-    min-width: 25px; /* Para alinear el texto */
-}
-
-.about__principles h3 {
-    color: var(--color-text-primary);
-    margin-bottom: 0.2rem;
-}
-
-.about__principles p {
-    font-size: 0.9rem;
-    color: var(--color-text-secondary);
-}
-
-/* ==========================================================================
-   5. SECCIÓN TECH STACK -- EL ARSENAL
-   ========================================================================== */
-
-#tech-stack {
-    padding: 6rem 0;
-}
-
-.tech-stack__scroller {
-    max-width: 100%;
-    overflow: hidden;
-    -webkit-mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
-    mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
-}
-
-.tech-stack__scroller .tech-stack__list {
-    display: flex;
-    flex-wrap: nowrap;
-    width: max-content;
-    animation: scroll 40s linear infinite;
-}
-
-.tech-stack__scroller:hover .tech-stack__list {
-    animation-play-state: paused;
-}
-
-.tech-stack__list img {
-    height: 60px; /* Tamaño de los iconos */
-    margin: 0 2rem;
-    transition: var(--transition-speed);
-    filter: grayscale(80%) opacity(0.7);
-}
-
-.tech-stack__list img:hover {
-    transform: scale(1.1);
-    filter: grayscale(0%) opacity(1);
-}
-
-/* ==========================================================================
-   6. SECCIÓN PROYECTOS -- EL ESCAPARATE
-   ========================================================================== */
-
-#proyectos {
-    padding: 6rem 0;
-    background-color: #101010;
-}
-
-.projects__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 2rem;
-}
-
-.project-card {
     background-color: var(--color-background);
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    overflow: hidden;
-    transition: var(--transition-speed);
-    display: flex;
-    flex-direction: column;
-}
-
-.project-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 30px rgba(0, 255, 65, 0.2);
-}
-
-.project-card__image-container {
+    transition: background-color 0.4s ease;
     position: relative;
-    height: 200px;
-    overflow: hidden;
-}
-
-.project-card__image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.4s ease;
-}
-
-.project-card:hover .project-card__image {
-    transform: scale(1.05);
-}
-
-.project-card__overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to top, rgba(13, 13, 13, 0.8), transparent);
-}
-
-.project-card__content {
-    padding: 1.5rem;
-    display: flex;
+    overflow-x: hidden;
+    display: flex; /* Centrar verticalmente su contenido */
     flex-direction: column;
-    flex-grow: 1; /* Permite que el contenido ocupe el espacio disponible */
+    justify-content: center;
+    min-height: 100vh; /* Asegurar espacio vertical consistente */
 }
 
-.project-card__title {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-}
-
-.project-card__description {
-    color: var(--color-text-secondary);
-    font-size: 0.9rem;
-    flex-grow: 1; /* Empuja las techs al fondo */
-    margin-bottom: 1.5rem;
-}
-
-.project-card__tech {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-}
-
-.project-card__tech span {
-    background-color: rgba(0, 255, 65, 0.1);
-    color: var(--color-matrix-green);
-    font-family: var(--font-text);
-    font-size: 0.75rem;
-    font-weight: 700;
-    padding: 0.3rem 0.7rem;
-    border-radius: 20px;
-}
-
-/* ==========================================================================
-   7. SECCIÓN CONTACTO -- LA SALIDA
-   ========================================================================== */
-
-#contacto {
-    padding: 8rem 0;
-    text-align: center;
-}
-
-.contacto__subtitle {
-    max-width: 600px;
-    margin: 0 auto 3rem auto;
-    color: var(--color-text-secondary);
-    font-size: 1.1rem;
-}
-
-.contacto__links {
+.about-header {
     display: flex;
     justify-content: center;
+    margin-bottom: 4rem;
+    position: relative; /* Contexto de posicionamiento para el easter egg */
+}
+
+/* FIX DEFINITIVO: De vuelta a Flexbox. Simple, centrado y robusto. */
+.toggle-switch-container {
+    display: flex;
+    align-items: center;
     gap: 1.5rem;
+    position: relative; /* Contexto para los absolute de los glitch */
+    z-index: 2; /* Asegurar que esté por encima */
+}
+.toggle-label { font-size: 1.1rem; font-weight: 600; transition: color 0.4s ease; }
+.toggle-switch { /* sin cambios */
+    position: relative; display: inline-block;
+    width: 60px; height: 34px; flex-shrink: 0;
+}
+.toggle-switch input { opacity: 0; width: 0; height: 0; }
+.toggle-switch .slider {
+    position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #2980b9; transition: .4s; border-radius: 34px;
+}
+.toggle-switch .slider:before {
+    position: absolute; content: ""; height: 26px; width: 26px; left: 4px; bottom: 4px;
+    background-color: white; transition: .4s; border-radius: 50%;
+}
+input:checked + .slider { background-color: #c0392b; }
+input:checked + .slider:before { transform: translateX(26px); }
+
+
+/* ==========================================================
+   Easter Egg Píldoras - Posicionamiento Definitivo y Final
+   ========================================================== */
+
+.pill-quote-glitch {
+    /* POSICIONAMIENTO RELATIVO AL CONTENEDOR PRINCIPAL */
+    position: absolute; 
+    
+    /* FIX DE ALINEACIÓN VERTICAL: Se alinea con la parte SUPERIOR del contenedor */
+    top: 0; 
+    bottom: 0;
+    margin: auto 0; /* Centrado vertical perfecto dentro del espacio disponible */
+    
+    width: auto; /* Dejar que el contenido defina el ancho */
+    height: 1.2rem; /* Altura fija para alineación consistente */
+
+    font-size: 0.9rem;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    animation: glitch-skew 3s infinite linear alternate;
+    white-space: nowrap;
 }
 
-.contacto__button {
-    transition: var(--transition-speed);
+.pill-quote-glitch.blue {
+    right: calc(100% + 2.5rem); /* MÁS SEPARACIÓN: 'calc' es más preciso que el margen */
+    text-align: right;
+    color: var(--color-matrix-green);
+    text-shadow: 1px 1px var(--color-algodev-blue);
 }
 
-.contacto__button:hover {
-    transform: scale(1.1);
+.pill-quote-glitch.red {
+    left: calc(100% + 2.5rem); /* MÁS SEPARACIÓN */
+    text-align: left;
+    color: var(--color-text-secondary-light);
+    text-shadow: 1px 1px #c0392b;
+}
+
+/* Regla de visibilidad con opacidad reducida */
+#about:not(.team-view-active) .pill-quote-glitch.blue,
+#about.team-view-active .pill-quote-glitch.red {
+    opacity: 0.4;
+}
+
+/* Transiciones de Tema Claro/Oscuro */
+#about.team-view-active { background-color: var(--color-background-light); color: var(--color-text-primary-light); }
+#about.team-view-active .toggle-label { color: var(--color-text-primary-light); }
+#about.team-view-active .about__avatar { border-color: var(--color-algodev-blue); }
+#about.team-view-active .faq-question { color: var(--color-text-primary-light); }
+#about.team-view-active .faq-question::after { color: var(--color-algodev-blue); }
+#about.team-view-active .faq-answer p, #about.team-view-active .team-contact-links { color: var(--color-text-secondary-light); }
+#about.team-view-active .faq-item { border-bottom-color: var(--color-border-light); }
+
+.view { display: none; }
+.view.active { display: block; animation: fadeIn 0.5s; }
+.about__container { display: flex; align-items: stretch; /* FIX: para igualar alturas */ gap: 4rem; }
+.about__left { flex-basis: 35%; flex-shrink: 0; position: sticky; top: 100px; /* FIX FINAL para que no salte */ }
+.about__avatar { width: 100%; border-radius: 10px; border: 3px solid var(--color-matrix-green); transition: all var(--transition-speed); }
+.about__avatar:hover { transform: scale(1.03); box-shadow: 0 0 30px var(--color-matrix-green); }
+#about.team-view-active .about__avatar:hover { box-shadow: 0 0 30px var(--color-algodev-blue); }
+.about__right { flex-basis: 65%; }
+
+/* ==== Acordeón de FAQs - SOLUCIÓN ESTÁNDAR Y ROBUSTA ==== */
+.faq-accordion { width: 100%; }
+.faq-item { border-bottom: 1px solid var(--color-border); transition: border-color var(--transition-speed); }
+.faq-question {
+    width: 100%; background: none; border: none; text-align: left;
+    padding: 1.5rem 0; font-family: var(--font-text); font-size: 1.1rem;
+    color: var(--color-text-primary); cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center;
+    transition: color var(--transition-speed);
+}
+.faq-question::after {
+    content: '+'; font-size: 2rem; color: var(--color-matrix-green);
+    transition: transform 0.4s ease, color var(--transition-speed);
+}
+.faq-item.active .faq-question::after { transform: rotate(180deg); content: '–'; }
+
+/* La única solución robusta: max-height */
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0, 1, 0, 1); /* Curva de easing fluida */
+}
+.faq-answer p, .faq-answer .team-contact-links {
+    padding-bottom: 1.5rem;
+    color: var(--color-text-secondary);
+    transition: color var(--transition-speed);
+}
+
+.team-contact-links { /* sin cambios */
+    display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;
+}
+.team-contact-links img { height: 40px; transition: transform var(--transition-speed); }
+.team-contact-links a:hover img { transform: scale(1.1); filter: drop-shadow(0 0 8px #fff); }
+#about.team-view-active .team-contact-links a:hover img { filter: drop-shadow(0 0 8px var(--color-algodev-blue)); }
+
+/* Responsive (revisado) */
+@media (max-width: 900px) {
+    .toggle-switch-container {
+        display: flex; flex-direction: column; gap: 1rem; padding: 0;
+    }
+    .pill-quote-glitch { display: none; }
+    
+    .about__container { flex-direction: column; }
+    .about__left { position: static; max-width: 250px; margin: 0 auto 3rem; }
 }
 
 /* ==========================================================================
-   8. FOOTER
+   5. SECCIÓN TECH STACK -- GRID INTERACTIVO (Refactorizado)
    ========================================================================== */
-   
+
+#tech-stack { padding: 6rem 0; }
+.tech-stack__grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 3rem 2rem; justify-content: center; /* Centrar grid */
+}
+.tech-item {
+    position: relative; display: flex; justify-content: center;
+    align-items: center; cursor: pointer;
+    animation: float 6s ease-in-out infinite; /* Animación de flotación */
+}
+/* Retraso de animación para un efecto más natural */
+.tech-item:nth-child(2n) { animation-delay: 0.5s; }
+.tech-item:nth-child(3n) { animation-delay: 1s; }
+
+.tech-item img {
+    height: 60px; transition: var(--transition-speed);
+    filter: brightness(0.7); /* Menos agresivo que grayscale */
+}
+.tech-item:hover img {
+    filter: brightness(1.1);
+    transform: scale(1.1);
+}
+.tech-item::after { /* Tooltip con nombre */
+    content: attr(data-tech-name); position: absolute; bottom: -30px;
+    background-color: var(--color-matrix-green); color: var(--color-background);
+    padding: 0.3rem 0.7rem; border-radius: 4px;
+    font-family: var(--font-text); font-size: 0.8rem;
+    opacity: 0; transform: translateY(-10px); transition: var(--transition-speed);
+    pointer-events: none;
+}
+.tech-item:hover::after { opacity: 1; transform: translateY(0); }
+.tech-item.glitch { position: relative; animation: glitch-skew 2s infinite linear alternate-reverse; }
+.tech-item.glitch::before, .tech-item.glitch::after {
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Cdefs%3E%3Cfilter id='a' x='0' y='0' width='100%25' height='100%25'%3E%3CfeImage xlink:href='%23b'/%3E%3C/filter%3E%3C/defs%3E%3Cg filter='url(%23a)'%3E%3Cimage id='b' width='100%25' height='100%25'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: cover; mix-blend-mode: color-dodge;
+}
+
+/* ==========================================================================
+   6. SECCIÓN PROYECTOS -- MODAL REFINADA
+   ========================================================================== */
+#proyectos { padding: 6rem 0; background-color: #101010; }
+.projects__grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem;
+}
+.project-card { /* Simplificado y convertido en botón */
+    border: none; padding: 0; cursor: pointer;
+    position: relative; height: 250px; overflow: hidden;
+    border-radius: 8px;
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+}
+.project-card:hover { transform: translateY(-10px); box-shadow: 0 10px 30px rgba(0, 255, 65, 0.2); }
+.project-card__image { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+.project-card:hover .project-card__image { transform: scale(1.1); }
+.project-card__overlay {
+    position: absolute; bottom: 0; left: 0; width: 100%;
+    padding: 3rem 1.5rem 1.5rem;
+    background: linear-gradient(to top, rgba(13, 13, 13, 0.95), transparent);
+    color: #fff; text-align: left;
+}
+.project-card__overlay h3 { font-size: 1.8rem; color: #fff; }
+
+/* ==========================================================================
+   7. MODAL DE PROYECTOS - ESTILOS MEJORADOS
+   ========================================================================== */
+#modal-proyecto-body .project-card__tech span {
+    background-color: rgba(0, 255, 65, 0.1); color: var(--color-matrix-green);
+    font-family: var(--font-text); font-size: 0.8rem; font-weight: 700;
+    padding: 0.4rem 0.8rem; border-radius: 5px; border: 1px solid var(--color-border);
+    transition: var(--transition-speed);
+}
+#modal-proyecto-body .project-card__tech span:hover {
+    background-color: var(--color-matrix-green);
+    color: var(--color-background);
+}
+#modal-proyecto-body .modal-cta-button {
+    display: inline-block;
+    margin-top: 2rem;
+    font-family: var(--font-titles); font-weight: 600; font-size: 1rem;
+    padding: 0.7rem 2rem; background-color: var(--color-matrix-green);
+    color: var(--color-background); border: none; border-radius: 5px;
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+    animation: float 4s ease-in-out infinite;
+}
+#modal-proyecto-body .modal-cta-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px var(--color-matrix-green);
+}
+#modal-proyecto-body .easter-egg-word { color: var(--color-matrix-green); cursor: pointer; }
+
+
+/* ==========================================================================
+   8. SECCIÓN CONTACTO (Refinada)
+   ========================================================================== */
+#contacto { padding: 8rem 0; text-align: center; }
+.contacto__subtitle {
+    max-width: 600px; margin: 0 auto 3rem auto;
+    color: var(--color-text-secondary); font-size: 1.1rem;
+}
+.contacto__links { display: flex; justify-content: center; align-items: center; gap: 2rem; }
+.contacto__links img {
+    height: 40px; /* Botones más grandes */
+    transition: transform var(--transition-speed);
+}
+.contacto__links a:hover img { transform: scale(1.15); filter: drop-shadow(0 0 10px #fff); }
+
+/* ==========================================================================
+   9. FOOTER (Refinado)
+   ========================================================================== */
 footer {
-    padding: 2rem 0;
-    text-align: center;
-    font-size: 0.9rem;
-    color: var(--color-text-secondary);
-    border-top: 1px solid var(--color-border);
+    padding: 2rem 0; text-align: center; font-size: 0.9rem;
+    color: var(--color-text-secondary); border-top: 1px solid var(--color-border);
+}
+.rabbit-footer-icon {
+    color: #fff; margin-right: 0.5rem; transition: color var(--transition-speed);
+}
+footer:hover .rabbit-footer-icon { color: var(--color-matrix-green); }
+
+
+/* ==========================================================================
+   10. MODALES (Refinado)
+   ========================================================================== */
+.modal {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.8); backdrop-filter: blur(8px);
+    display: flex; justify-content: center; align-items: center;
+    z-index: 1000;
+    opacity: 0; visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+.modal.active { opacity: 1; visibility: visible; }
+.modal__content {
+    background-color: var(--color-background); border: 1px solid var(--color-border);
+    padding: 2.5rem; border-radius: 8px; width: 90%;
+    max-width: 700px; position: relative;
+    transform: scale(0.9); transition: transform 0.3s;
+}
+.modal.active .modal__content { transform: scale(1); }
+.modal__close-btn {
+    position: absolute; top: 1rem; right: 1.5rem;
+    background: none; border: none; font-size: 2rem;
+    color: var(--color-text-secondary); cursor: pointer; transition: color var(--transition-speed);
+}
+.modal__close-btn:hover { color: #fff; }
+
+
+/* ==========================================================================
+   11. MEDIA QUERIES PARA RESPONSIVIDAD (Actualizadas)
+   ========================================================================== */
+@media (max-width: 768px) {
+    body { font-size: 14px; } /* Ajuste base para móviles */
+
+    .hero__title { font-size: 2rem; min-height: 9rem; /* más espacio para 3 líneas */ }
+    .hero__subtitle { font-size: 0.9rem; }
+    .terminal-nav { display: none; }
+
+    .section-title { font-size: 2rem; }
+    #about { padding: 4rem 0; }
+    .toggle-switch-container {
+        flex-direction: column; gap: 0.8rem;
+    }
+
+    .about__container {
+        flex-direction: column;
+        text-align: center;
+    }
+    .about__left {
+        max-width: 200px; /* Tamaño de avatar más proporcionado */
+        margin: 0 auto 2rem auto;
+    }
+    .faq-question { text-align: left; } /* Mantener el texto alineado a la izquierda */
+
+    #proyectos, #tech-stack, #contacto { padding: 4rem 0; }
+    
+    .tech-stack__grid {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); /* Logos más pequeños */
+        gap: 2rem;
+    }
+    .tech-item img { height: 45px; }
+
+    .projects__grid {
+        grid-template-columns: 1fr; /* Una columna en móvil */
+    }
+
+    .modal__content { padding: 2rem 1.5rem; }
+    .modal__title { font-size: 1.5rem; }
 }
