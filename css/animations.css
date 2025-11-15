@@ -4,26 +4,26 @@
 
 /* Animación para el parpadeo del cursor en la sección Hero */
 @keyframes blink {
-    0%, 100% { 
-        opacity: 1; 
-    }
-    50% { 
-        opacity: 0; 
-    }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
 
 /* Animación de entrada suave para las vistas y modales */
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
-
 
 /* ==========================================================================
    2. ANIMACIONES DE ELEMENTOS (V2.1)
@@ -31,27 +31,26 @@
 
 /* Animación de flotación sutil para los logos y botones CTA */
 @keyframes float {
-    0% {
-        transform: translateY(0px);
-    }
-    50% {
-        transform: translateY(-8px);
-    }
-    100% {
-        transform: translateY(0px);
-    }
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
 }
 
 /* Animación de brillo/reflejo para botones y elementos destacados */
 @keyframes shine {
-    0% {
-        background-position: -200% 0;
-    }
-    100% {
-        background-position: 200% 0;
-    }
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
-
 
 /* ==========================================================================
    3. ANIMACIONES DE EASTER EGGS (V2.1)
@@ -60,59 +59,157 @@
 /* Animación de "Glitch" para el Fallo en la Matrix y la Píldora */
 /* Es un efecto de varias capas que usa los siguientes 3 keyframes */
 @keyframes glitch-skew {
-    0% { transform: skew(0); }
-    5% { transform: skew(-2deg, 1deg); }
-    10% { transform: skew(0); }
-    70% { transform: skew(0); }
-    75% { transform: skew(3deg, -2deg); }
-    80% { transform: skew(0); }
-    100% { transform: skew(0); }
+  0% {
+    transform: skew(0);
+  }
+  5% {
+    transform: skew(-2deg, 1deg);
+  }
+  10% {
+    transform: skew(0);
+  }
+  70% {
+    transform: skew(0);
+  }
+  75% {
+    transform: skew(3deg, -2deg);
+  }
+  80% {
+    transform: skew(0);
+  }
+  100% {
+    transform: skew(0);
+  }
 }
 
 @keyframes glitch-anim-1 {
-    0%   { clip-path: inset(35% 0 58% 0); }
-    5%   { clip-path: inset(48% 0 21% 0); }
-    10%  { clip-path: inset(27% 0 54% 0); }
-    15%  { clip-path: inset(48% 0 41% 0); }
-    20%  { clip-path: inset(93% 0 2% 0); }
-    25%  { clip-path: inset(55% 0 17% 0); }
-    30%  { clip-path: inset(34% 0 57% 0); }
-    35%  { clip-path: inset(18% 0 81% 0); }
-    40%  { clip-path: inset(98% 0 1% 0); }
-    45%  { clip-path: inset(39% 0 53% 0); }
-    50%  { clip-path: inset(47% 0 51% 0); }
-    55%  { clip-path: inset(23% 0 76% 0); }
-    60%  { clip-path: inset(86% 0 8% 0); }
-    65%  { clip-path: inset(4% 0 91% 0); }
-    70%  { clip-path: inset(59% 0 35% 0); }
-    75%  { clip-path: inset(31% 0 63% 0); }
-    80%  { clip-path: inset(99% 0 1% 0); }
-    85%  { clip-path: inset(69% 0 19% 0); }
-    90%  { clip-path: inset(88% 0 3% 0); }
-    95%  { clip-path: inset(37% 0 55% 0); }
-    100% { clip-path: inset(1% 0 92% 0); }
+  0% {
+    clip-path: inset(35% 0 58% 0);
+  }
+  5% {
+    clip-path: inset(48% 0 21% 0);
+  }
+  10% {
+    clip-path: inset(27% 0 54% 0);
+  }
+  15% {
+    clip-path: inset(48% 0 41% 0);
+  }
+  20% {
+    clip-path: inset(93% 0 2% 0);
+  }
+  25% {
+    clip-path: inset(55% 0 17% 0);
+  }
+  30% {
+    clip-path: inset(34% 0 57% 0);
+  }
+  35% {
+    clip-path: inset(18% 0 81% 0);
+  }
+  40% {
+    clip-path: inset(98% 0 1% 0);
+  }
+  45% {
+    clip-path: inset(39% 0 53% 0);
+  }
+  50% {
+    clip-path: inset(47% 0 51% 0);
+  }
+  55% {
+    clip-path: inset(23% 0 76% 0);
+  }
+  60% {
+    clip-path: inset(86% 0 8% 0);
+  }
+  65% {
+    clip-path: inset(4% 0 91% 0);
+  }
+  70% {
+    clip-path: inset(59% 0 35% 0);
+  }
+  75% {
+    clip-path: inset(31% 0 63% 0);
+  }
+  80% {
+    clip-path: inset(99% 0 1% 0);
+  }
+  85% {
+    clip-path: inset(69% 0 19% 0);
+  }
+  90% {
+    clip-path: inset(88% 0 3% 0);
+  }
+  95% {
+    clip-path: inset(37% 0 55% 0);
+  }
+  100% {
+    clip-path: inset(1% 0 92% 0);
+  }
 }
 
 @keyframes glitch-anim-2 {
-    0%   { clip-path: inset(79% 0 16% 0); }
-    5%   { clip-path: inset(2% 0 92% 0); }
-    10%  { clip-path: inset(72% 0 5% 0); }
-    15%  { clip-path: inset(28% 0 40% 0); }
-    20%  { clip-path: inset(84% 0 1% 0); }
-    25%  { clip-path: inset(62% 0 25% 0); }
-    30%  { clip-path: inset(45% 0 49% 0); }
-    35%  { clip-path: inset(11% 0 87% 0); }
-    40%  { clip-path: inset(19% 0 71% 0); }
-    45%  { clip-path: inset(88% 0 6% 0); }
-    50%  { clip-path: inset(3% 0 91% 0); }
-    55%  { clip-path: inset(61% 0 36% 0); }
-    60%  { clip-path: inset(84% 0 4% 0); }
-    65%  { clip-path: inset(44% 0 48% 0); }
-    70%  { clip-path: inset(1% 0 89% 0); }
-    75%  { clip-path: inset(66% 0 29% 0); }
-    80%  { clip-path: inset(39% 0 56% 0); }
-    85%  { clip-path: inset(4% 0 93% 0); }
-    90%  { clip-path: inset(87% 0 7% 0); }
-    95%  { clip-path: inset(46% 0 46% 0); }
-    100% { clip-path: inset(8% 0 68% 0); }
+  0% {
+    clip-path: inset(79% 0 16% 0);
+  }
+  5% {
+    clip-path: inset(2% 0 92% 0);
+  }
+  10% {
+    clip-path: inset(72% 0 5% 0);
+  }
+  15% {
+    clip-path: inset(28% 0 40% 0);
+  }
+  20% {
+    clip-path: inset(84% 0 1% 0);
+  }
+  25% {
+    clip-path: inset(62% 0 25% 0);
+  }
+  30% {
+    clip-path: inset(45% 0 49% 0);
+  }
+  35% {
+    clip-path: inset(11% 0 87% 0);
+  }
+  40% {
+    clip-path: inset(19% 0 71% 0);
+  }
+  45% {
+    clip-path: inset(88% 0 6% 0);
+  }
+  50% {
+    clip-path: inset(3% 0 91% 0);
+  }
+  55% {
+    clip-path: inset(61% 0 36% 0);
+  }
+  60% {
+    clip-path: inset(84% 0 4% 0);
+  }
+  65% {
+    clip-path: inset(44% 0 48% 0);
+  }
+  70% {
+    clip-path: inset(1% 0 89% 0);
+  }
+  75% {
+    clip-path: inset(66% 0 29% 0);
+  }
+  80% {
+    clip-path: inset(39% 0 56% 0);
+  }
+  85% {
+    clip-path: inset(4% 0 93% 0);
+  }
+  90% {
+    clip-path: inset(87% 0 7% 0);
+  }
+  95% {
+    clip-path: inset(46% 0 46% 0);
+  }
+  100% {
+    clip-path: inset(8% 0 68% 0);
+  }
 }
