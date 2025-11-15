@@ -25,172 +25,184 @@
 </head>
 <body>
 
-    <!-- ============== HEADER Y NAVEGACIÓN (OPCIONAL) ============== -->
-    <header>
-        <!-- Podríamos tener aquí un logo o menú simple en el futuro -->
-    </header>
-
+    <!-- ============== ELEMENTOS OCULTOS (MODALES) ============== -->
+    <div class="modal" id="modal-proyecto">
+        <div class="modal__content">
+            <button class="modal__close-btn" id="close-proyecto-modal">&times;</button>
+            <div id="modal-proyecto-body">
+                <!-- El contenido se inyectará con JavaScript -->
+            </div>
+        </div>
+    </div>
+    
     <main>
 
-        <!-- ============== SECCIÓN HERO: LA BIENVENIDA A LA MATRIX ============== -->
+        <!-- ============== SECCIÓN HERO: TERMINAL INTERACTIVA ============== -->
         <section id="hero">
-            <canvas id="matrix-canvas"></canvas> <!-- El lienzo para la lluvia digital -->
-            <div class="hero__content" data-aos="fade-in" data-aos-delay="500">
-                <h1 class="hero__title">
-                    <span id="typed-text"></span><span class="cursor">_</span>
-                </h1>
-                <p class="hero__subtitle">
-                    Diseño y desarrollo experiencias web, móviles y productos digitales prácticos y escalables, pensados para el usuario y el negocio.
-                </p>
-                <a href="#proyectos" class="hero__cta-button">VER MIS PROYECTOS</a>
+            <div class="terminal-frame">
+                <canvas id="matrix-canvas"></canvas>
+                <div class="terminal-header">
+                    <div class="terminal-buttons">
+                        <span class="terminal-btn red"></span>
+                        <span class="terminal-btn yellow"></span>
+                        <span class="terminal-btn green"></span>
+                    </div>
+                    <nav class="terminal-nav">
+                        <a href="#proyectos">Proyectos</a>
+                        <a href="#contacto">Contacto</a>
+                        <a href="#about" id="nav-equipo-link">AlgoDev</a>
+                    </nav>
+                    <div class="terminal-easter-egg">
+                        <button id="rabbit-btn" title="Follow the white rabbit...">
+                            <i class="fa-solid fa-question"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="hero__content" data-aos="fade-in" data-aos-delay="500">
+                        <h1 class="hero__title">
+                            <span id="typed-text"></span>
+                        </h1>
+                    <p class="hero__subtitle">Transformando código en soluciones robustas e intuitivas.</p>
+                    <div class="easter-egg-message" id="easter-egg-container"></div>
+                </div>
             </div>
         </section>
 
-        <!-- ============== SECCIÓN SOBRE MÍ: TU MANIFIESTO ============== -->
+        <!-- ============== SECCIÓN SOBRE MÍ Y EQUIPO: DOS CARAS ============== -->
         <section id="about" data-aos="fade-up">
-            <div class="container about__container">
-    <div class="about__left">
-        <img src="assets/images/avatar.png" alt="Avatar de Luca Bazzani" class="about__avatar">
-    </div>
-            <div class="about__right">
-                <h2 class="section-title">// SOBRE MÍ</h2>
-                <p class="about__text">
-                    Mi pasión es diseñar y desarrollar experiencias web, móviles y productos digitales que sean prácticos, escalables y estén pensados tanto para el usuario final como para los objetivos del negocio. Soy un profesional proactivo, en constante aprendizaje y enfocado en aportar soluciones robustas y eficientes.
-                </p>
-                <ul class="about__principles">
-                    <li><i class="fas fa-code"></i><div><h3>Código Robusto</h3><p>Soluciones eficientes y mantenibles a largo plazo.</p></div></li>
-                    <li><i class="fas fa-sitemap"></i><div><h3>Arquitectura Escalable</h3><p>Sistemas preparados para el crecimiento futuro.</p></div></li>
-                    <li><i class="fas fa-lightbulb"></i><div><h3>Diseño Intuitivo</h3><p>Experiencias de usuario claras y directas.</p></div></li>
-                </ul>
+            <div class="about-header">
+                <div class="toggle-switch-container">
+                    <span class="pill-quote-glitch blue">Tomas la píldora azul, la historia termina...</span>
+                    <span class="toggle-label blue-pill-text">Sobre Mí</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="view-toggle">
+                        <span class="slider"></span>
+                    </label>
+                    <span class="toggle-label red-pill-text">AlgoDev</span>
+                    <span class="pill-quote-glitch red">Tomas la píldora roja, te quedas en el País de las Maravillas...</span>
+                </div>
             </div>
+            
+            <!-- Vista "Sobre Mí" -->
+            <div class="view active" id="about-me-view">
+                <div class="container about__container">
+                    <div class="about__left">
+                        <img src="assets/images/avatar.png" alt="Avatar de Luca Bazzani" class="about__avatar">
+                    </div>
+                    <div class="about__right">
+                        <!-- Estructura de FAQs Interactivas (Acordeón) -->
+                        <div class="faq-accordion">
+                            <div class="faq-item">
+                                <button class="faq-question">Formación Académica</button>
+                                <div class="faq-answer"><p>Estudiante de segundo año en la Tecnicatura Universitaria de Desarrollo Full Stack, en el Instituto Superior Arturo Illia (Villa Carlos Paz, Córdoba).</p></div>
+                            </div>
+                            <div class="faq-item">
+                                <button class="faq-question">Experiencia Clave</button>
+                                <div class="faq-answer"><p>Actualmente me encuentro desarrollando una aplicación web integral para la gestión de un club deportivo como proyecto de tesis final de mi carrera.</p></div>
+                            </div>
+                            <div class="faq-item">
+                                <button class="faq-question">Filosofía de Aprendizaje</button>
+                                <div class="faq-answer"><p>Soy principalmente autodidacta. Me apasiona investigar y enfrentar nuevos desafíos en lenguajes y tecnologías que van más allá de mi formación académica.</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Vista "Sobre mi Equipo" (Idéntica estructura) -->
+            <div class="view" id="about-team-view">
+                <div class="container about__container">
+                    <div class="about__left">
+                        <img src="assets/images/team-logo.jpeg" alt="Logo de AlgoDev" class="about__avatar">
+                    </div>
+                    <div class="about__right">
+                        <!-- El mismo formato de acordeón para mantener consistencia -->
+                        <div class="faq-accordion">
+                            <div class="faq-item">
+                                <button class="faq-question">¿Quiénes Somos?</button>
+                                <div class="faq-answer"><p>AlgoDev es una agencia de desarrollo de software enfocada en transformar ideas en soluciones digitales eficientes y escalables. ¿Buscas desarrollar algo? Elige AlgoDev.</p></div>
+                            </div>
+                            <div class="faq-item">
+                                <button class="faq-question">¿Qué Hacemos?</button>
+                                <div class="faq-answer"><p>Nos especializamos en el desarrollo a medida de aplicaciones web, móviles y de escritorio, acompañando a nuestros clientes desde la concepción de la idea hasta el despliegue final.</p></div>
+                            </div>
+                            <div class="faq-item">
+                                <button class="faq-question">¿Cómo contactarnos?</button>
+                                <div class="faq-answer">
+                                    <div class="team-contact-links">
+                                        <!-- Los botones se insertarán aquí con JavaScript -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- ============== SECCIÓN TECH STACK: TU ARSENAL ============== -->
+        <!-- ============== SECCIÓN TECH STACK: GRID INTERACTIVO ============== -->
         <section id="tech-stack" data-aos="fade-up">
-<div class="container">
-    <h2 class="section-title text-center">// ARSENAL TECNOLÓGICO</h2>
-</div>
-<div class="tech-stack__scroller">
-    <div class="tech-stack__list">
-        <!-- La lista se repite para el efecto infinito -->
-        <img src="https://skillicons.dev/icons?i=java&theme=dark" alt="Java">
-        <img src="https://skillicons.dev/icons?i=kotlin&theme=dark" alt="Kotlin">
-        <img src="https://skillicons.dev/icons?i=cs&theme=dark" alt="C#">
-        <img src="https://skillicons.dev/icons?i=nodejs&theme=dark" alt="Node.js">
-        <img src="https://skillicons.dev/icons?i=mysql&theme=dark" alt="MySQL">
-        <img src="https://skillicons.dev/icons?i=html&theme=dark" alt="HTML5">
-        <img src="https://skillicons.dev/icons?i=css&theme=dark" alt="CSS3">
-        <img src="https://skillicons.dev/icons?i=js&theme=dark" alt="JavaScript">
-        <img src="https://skillicons.dev/icons?i=react&theme=dark" alt="React">
-        <img src="https://skillicons.dev/icons?i=ts&theme=dark" alt="TypeScript">
-        <img src="https://skillicons.dev/icons?i=git&theme=dark" alt="Git">
-        <img src="https://skillicons.dev/icons?i=github&theme=dark" alt="GitHub">
-        <img src="https://skillicons.dev/icons?i=docker&theme=dark" alt="Docker">
-        <img src="https://skillicons.dev/icons?i=idea&theme=dark" alt="IntelliJ IDEA">
-        <img src="https://skillicons.dev/icons?i=androidstudio&theme=dark" alt="Android Studio">
-        <img src="https://skillicons.dev/icons?i=vscode&theme=dark" alt="VS Code">
-        <img src="https://skillicons.dev/icons?i=figma&theme=dark" alt="Figma">
-    </div>
-    <div class="tech-stack__list">
-        <!-- La lista se repite para el efecto infinito -->
-        <img src="https://skillicons.dev/icons?i=java&theme=dark" alt="Java">
-        <img src="https://skillicons.dev/icons?i=kotlin&theme=dark" alt="Kotlin">
-        <img src="https://skillicons.dev/icons?i=cs&theme=dark" alt="C#">
-        <img src="https://skillicons.dev/icons?i=nodejs&theme=dark" alt="Node.js">
-        <img src="https://skillicons.dev/icons?i=mysql&theme=dark" alt="MySQL">
-        <img src="https://skillicons.dev/icons?i=html&theme=dark" alt="HTML5">
-        <img src="https://skillicons.dev/icons?i=css&theme=dark" alt="CSS3">
-        <img src="https://skillicons.dev/icons?i=js&theme=dark" alt="JavaScript">
-        <img src="https://skillicons.dev/icons?i=react&theme=dark" alt="React">
-        <img src="https://skillicons.dev/icons?i=ts&theme=dark" alt="TypeScript">
-        <img src="https://skillicons.dev/icons?i=git&theme=dark" alt="Git">
-        <img src="https://skillicons.dev/icons?i=github&theme=dark" alt="GitHub">
-        <img src="https://skillicons.dev/icons?i=docker&theme=dark" alt="Docker">
-        <img src="https://skillicons.dev/icons?i=idea&theme=dark" alt="IntelliJ IDEA">
-        <img src="https://skillicons.dev/icons?i=androidstudio&theme=dark" alt="Android Studio">
-        <img src="https://skillicons.dev/icons?i=vscode&theme=dark" alt="VS Code">
-        <img src="https://skillicons.dev/icons?i=figma&theme=dark" alt="Figma">
-    </div>
-</div>
+            <div class="container">
+                <h2 class="section-title text-center">// ARSENAL TECNOLÓGICO</h2>
+                <div class="tech-stack__grid">
+                    <div class="tech-item" data-tech-name="Java"><img src="https://skillicons.dev/icons?i=java" alt="Java"></div>
+                    <div class="tech-item" data-tech-name="Kotlin"><img src="https://skillicons.dev/icons?i=kotlin" alt="Kotlin"></div>
+                    <div class="tech-item" data-tech-name="C#"><img src="https://skillicons.dev/icons?i=cs" alt="C#"></div>
+                    <div class="tech-item" data-tech-name="Node.js"><img src="https://skillicons.dev/icons?i=nodejs" alt="Node.js"></div>
+                    <div class="tech-item" data-tech-name="MySQL"><img src="https://skillicons.dev/icons?i=mysql" alt="MySQL"></div>
+                    <div class="tech-item" data-tech-name="HTML5"><img src="https://skillicons.dev/icons?i=html" alt="HTML5"></div>
+                    <div class="tech-item" data-tech-name="CSS3"><img src="https://skillicons.dev/icons?i=css" alt="CSS3"></div>
+                    <div class="tech-item" data-tech-name="JavaScript"><img src="https://skillicons.dev/icons?i=js" alt="JavaScript"></div>
+                    <div class="tech-item" data-tech-name="React"><img src="https://skillicons.dev/icons?i=react" alt="React"></div>
+                    <div class="tech-item" data-tech-name="TypeScript"><img src="https://skillicons.dev/icons?i=ts" alt="TypeScript"></div>
+                    <div class="tech-item" data-tech-name="Git"><img src="https://skillicons.dev/icons?i=git" alt="Git"></div>
+                    <div class="tech-item" data-tech-name="GitHub"><img src="https://skillicons.dev/icons?i=github" alt="GitHub"></div>
+                    <div class="tech-item" data-tech-name="Docker"><img src="https://skillicons.dev/icons?i=docker" alt="Docker"></div>
+                    <div class="tech-item" data-tech-name="IntelliJ IDEA"><img src="https://skillicons.dev/icons?i=idea" alt="IntelliJ IDEA"></div>
+                    <div class="tech-item" data-tech-name="Android Studio"><img src="https://skillicons.dev/icons?i=androidstudio" alt="Android Studio"></div>
+                    <div class="tech-item" data-tech-name="VS Code"><img src="https://skillicons.dev/icons?i=vscode" alt="VS Code"></div>
+                    <div class="tech-item" data-tech-name="Figma"><img src="https://skillicons.dev/icons?i=figma" alt="Figma"></div>
+                    <div class="tech-item" data-tech-name="Jira"><img src="https://skillicons.dev/icons?i=jira" alt="Jira"></div>
+                    <div class="tech-item" data-tech-name="Trello"><img src="https://skillicons.dev/icons?i=trello" alt="Trello"></div>
+                </div>
+            </div>
         </section>
 
-        <!-- ============== SECCIÓN PROYECTOS: TUS OBRAS MAESTRAS ============== -->
+        <!-- ============== SECCIÓN PROYECTOS: GALERÍA CON MODALES ============== -->
         <section id="proyectos" data-aos="fade-up">
-<div class="container">
-    <h2 class="section-title text-center">// PROYECTOS DESTACADOS</h2>
-    <div class="projects__grid">
-
-        <!-- Tarjeta de Proyecto 1 -->
-        <div class="project-card" data-aos="fade-up" data-aos-delay="100">
-            <div class="project-card__image-container">
-                <img src="assets/images/proyecto-club.jpg" alt="Captura de pantalla del proyecto Bolívar Connect" class="project-card__image">
-                <div class="project-card__overlay"></div>
-            </div>
-            <div class="project-card__content">
-                <h3 class="project-card__title">Bolívar Connect</h3>
-                <p class="project-card__description">App Java/JavaFX de escritorio para la gestión integral de un club deportivo, manejando socios, cuotas, stock y documentación.</p>
-                <div class="project-card__tech">
-                    <span>Java</span>
-                    <span>JavaFX</span>
-                    <span>MySQL</span>
+            <div class="container">
+                <h2 class="section-title text-center">// PROYECTOS DESTACADOS</h2>
+                <div class="projects__grid">
+                    <button class="project-card" data-project-id="1" data-aos="fade-up" data-aos-delay="100">
+                        <img src="assets/images/proyecto-club.jpg" alt="Captura del proyecto Bolívar Connect" class="project-card__image">
+                        <div class="project-card__overlay"><h3>Bolívar Connect</h3></div>
+                    </button>
+                    <button class="project-card" data-project-id="2" data-aos="fade-up" data-aos-delay="200">
+                        <img src="assets/images/proyecto-nexus.jpg" alt="Captura del proyecto Inova Nexus" class="project-card__image">
+                        <div class="project-card__overlay"><h3>Inova Nexus</h3></div>
+                    </button>
+                    <button class="project-card" data-project-id="3" data-aos="fade-up" data-aos-delay="300">
+                        <img src="assets/images/proyecto-tron.jpg" alt="Captura del proyecto Calcutron" class="project-card__image">
+                        <div class="project-card__overlay"><h3>Calcutron</h3></div>
+                    </button>
                 </div>
             </div>
-        </div>
-
-        <!-- Tarjeta de Proyecto 2 -->
-        <div class="project-card" data-aos="fade-up" data-aos-delay="200">
-            <div class="project-card__image-container">
-                <img src="assets/images/proyecto-nexus.jpg" alt="Captura de pantalla del proyecto Inova Nexus" class="project-card__image">
-                <div class="project-card__overlay"></div>
-            </div>
-            <div class="project-card__content">
-                <h3 class="project-card__title">Inova Nexus</h3>
-                <p class="project-card__description">Aplicación móvil nativa en Kotlin para la gestión de lecturas y escrituras, centralizando las necesidades de la comunidad literaria.</p>
-                <div class="project-card__tech">
-                    <span>Kotlin</span>
-                    <span>Android Nativo</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tarjeta de Proyecto 3 -->
-        <div class="project-card" data-aos="fade-up" data-aos-delay="300">
-            <div class="project-card__image-container">
-                <img src="assets/images/proyecto-tron.jpg" alt="Captura de pantalla del proyecto Calcutron" class="project-card__image">
-                <div class="project-card__overlay"></div>
-            </div>
-            <div class="project-card__content">
-                <h3 class="project-card__title">Calcutron</h3>
-                <p class="project-card__description">Calculadora de escritorio Java/JavaFX con estética "Tron" para estadística, matrices y cálculo avanzado.</p>
-                <div class="project-card__tech">
-                    <span>Java</span>
-                    <span>JavaFX</span>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
         </section>
 
-        <!-- ============== SECCIÓN CONTACTO: LA LLAMADA FINAL ============== -->
+        <!-- ============== SECCIÓN CONTACTO: ACCIÓN FINAL (Restaurada) ============== -->
         <section id="contacto" data-aos="fade-up">
-<div class="container text-center">
-    <h2 class="section-title text-center">// CONTACTO</h2>
-    <p class="contacto__subtitle">
-        ¿Tienes una idea para un proyecto o simplemente quieres charlar sobre tecnología?<br>
-        Siempre estoy abierto a conectar y explorar nuevas oportunidades.
-    </p>
-    <div class="contacto__links">
-        <a href="https://www.linkedin.com/in/bazzaniluca" target="_blank" class="contacto__button" data-aos="zoom-in" data-aos-delay="100">
-            <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn Profile"/>
-        </a>
-        <a href="mailto:luccasbazza@gmail.com" class="contacto__button" data-aos="zoom-in" data-aos-delay="200">
-            <img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Enviar un correo"/>
-        </a>
-    </div>
-</div>
+            <div class="container text-center">
+                <h2 class="section-title text-center">// CONTACTO</h2>
+                <p class="contacto__subtitle">
+                    ¿Tienes una idea para un proyecto o simplemente quieres charlar sobre tecnología?<br>
+                    Estoy abierto a conectar y explorar nuevas oportunidades.
+                </p>
+                <div class="contacto__links">
+                    <a href="https://www.linkedin.com/in/bazzaniluca" target="_blank"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="Perfil de LinkedIn"/></a>
+                    <a href="mailto:luccasbazza@gmail.com"><img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Enviar un correo"/></a>
+                    <a href="https://github.com/lucabazzani" target="_blank"><img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="Perfil de GitHub"/></a>
+                </div>
+            </div>
         </section>
 
     </main>
@@ -201,12 +213,12 @@
     </footer>
 
     <!-- ============== KIT DE ICONOS (Font Awesome) ============== -->
-    <!-- Pega aquí la línea <script> de tu kit de Font Awesome -->
-
+    <script src="https://kit.fontawesome.com/d36a77a071.js" crossorigin="anonymous"></script>
+    
     <!-- ============== LIBRERÍAS JAVASCRIPT ============== -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> <!-- Animate On Scroll -->
-    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script> <!-- Efecto Máquina de Escribir -->
-
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    
     <!-- ============== SCRIPTS PROPIOS (IMPORTANTE: deben ir al final) ============== -->
     <script src="js/matrix-rain.js"></script>
     <script src="js/main.js"></script>

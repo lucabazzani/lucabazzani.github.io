@@ -12,7 +12,7 @@ let fontSize = 10,
 
 let drops = [];
 for (let i = 0; i < columns; i++) {
-  drops[i] = 1;
+  drops[i] = Math.floor(Math.random() * canvas.height / fontSize);
 }
 
 function draw() {
@@ -23,10 +23,22 @@ function draw() {
     ctx.fillStyle = '#00ff41';
     ctx.fillText(text, i * fontSize, drops[i] * fontSize);
     drops[i]++;
-    if (drops[i] * fontSize > canvas.height && Math.random() > .95) {
+    if (drops[i] * fontSize > canvas.height && Math.random() > .975) { // Aumentado para un reseteo más esporádico
       drops[i] = 0;
     }
   }
 }
 
+// Iniciar animación
 setInterval(draw, 33);
+
+// Redimensionar el canvas si la ventana cambia
+window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    columns = canvas.width / fontSize;
+    drops = [];
+    for (let i = 0; i < columns; i++) {
+        drops[i] = Math.floor(Math.random() * canvas.height / fontSize);
+    }
+});
