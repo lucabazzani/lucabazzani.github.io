@@ -26,7 +26,6 @@
   --transition-speed: 0.3s ease;
 }
 
-/* ... Estilos base (box-sizing, html, body sin cambios) ... */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -58,7 +57,7 @@ button {
 } /* Heredar fuente para botones */
 
 /* ==========================================================================
-   2. HERO SECTION -- TERMINAL INTERACTIVA (Refinado)
+   2. HERO SECTION -- TERMINAL INTERACTIVA
    ========================================================================== */
 #hero {
   /* Sin cambios */
@@ -162,21 +161,18 @@ button {
   text-align: center;
 }
 .hero__title {
-  /* min-height modificado */
   font-size: 3.5rem;
   font-weight: 700;
   min-height: 8rem; /* Espacio para dos líneas del Typed.js */
 }
 
 .hero__subtitle {
-  /* NUEVO: Restaurado y estilizado */
   font-size: 1.1rem;
   color: var(--color-text-secondary);
   max-width: 600px;
   margin: 1.5rem auto 0 auto;
 }
 .easter-egg-message {
-  /* renombrado y estilizado */
   font-family: var(--font-text);
   color: var(--color-matrix-green);
   margin-top: 1rem;
@@ -206,7 +202,7 @@ body.glitch-active .terminal-frame {
 }
 
 /* ==========================================================================
-   3. CLASES DE UTILIDAD (Revisado)
+   3. CLASES DE UTILIDAD
    ========================================================================== */
 .container {
   /* Sin cambios */
@@ -243,7 +239,7 @@ body.glitch-active .terminal-frame {
 }
 
 /* ==========================================================================
-   4. SECCIÓN SOBRE MÍ / EQUIPO (SOLUCIÓN FINALÍSIMA Y ROBUSTA)
+   4. SECCIÓN SOBRE MÍ / EQUIPO
    ========================================================================== */
 
 #about {
@@ -320,52 +316,6 @@ input:checked + .slider:before {
   transform: translateX(26px);
 }
 
-/* ==========================================================
-   Easter Egg Píldoras - Posicionamiento Definitivo y Final
-   ========================================================== */
-
-.pill-quote-glitch {
-  /* POSICIONAMIENTO RELATIVO AL CONTENEDOR PRINCIPAL */
-  position: absolute;
-
-  /* FIX DE ALINEACIÓN VERTICAL: Se alinea con la parte SUPERIOR del contenedor */
-  top: 0;
-  bottom: 0;
-  margin: auto 0; /* Centrado vertical perfecto dentro del espacio disponible */
-
-  width: auto; /* Dejar que el contenido defina el ancho */
-  height: 1.2rem; /* Altura fija para alineación consistente */
-
-  font-size: 0.9rem;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-  animation: glitch-skew 3s infinite linear alternate;
-  white-space: nowrap;
-}
-
-.pill-quote-glitch.blue {
-  right: calc(
-    100% + 2.5rem
-  ); /* MÁS SEPARACIÓN: 'calc' es más preciso que el margen */
-  text-align: right;
-  color: var(--color-matrix-green);
-  text-shadow: 1px 1px var(--color-algodev-blue);
-}
-
-.pill-quote-glitch.red {
-  left: calc(100% + 2.5rem); /* MÁS SEPARACIÓN */
-  text-align: left;
-  color: var(--color-text-secondary-light);
-  text-shadow: 1px 1px #c0392b;
-}
-
-/* Regla de visibilidad con opacidad reducida */
-#about:not(.team-view-active) .pill-quote-glitch.blue,
-#about.team-view-active .pill-quote-glitch.red {
-  opacity: 0.4;
-}
-
 /* Transiciones de Tema Claro/Oscuro */
 #about.team-view-active {
   background-color: var(--color-background-light);
@@ -426,7 +376,7 @@ input:checked + .slider:before {
   flex-basis: 65%;
 }
 
-/* ==== Acordeón de FAQs - SOLUCIÓN ESTÁNDAR Y ROBUSTA ==== */
+/* ==== Acordeón de FAQs ==== */
 .faq-accordion {
   width: 100%;
 }
@@ -495,13 +445,27 @@ input:checked + .slider:before {
 /* Responsive (revisado) */
 @media (max-width: 900px) {
   .toggle-switch-container {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding: 0;
+    padding-bottom: 2rem; /* Espacio para el texto de abajo */
   }
   .pill-quote-glitch {
-    display: none;
+    /* Desactivar posicionamiento lateral */
+    position: absolute;
+    top: 100%; /* Posicionar DEBAJO del contenedor del toggle */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%; /* Ocupar todo el ancho para centrar texto */
+    text-align: center;
+    margin: 1rem 0 0 0; /* Margen superior */
+  }
+  /* Ocultar ambos textos por defecto */
+  .pill-quote-glitch.blue,
+  .pill-quote-glitch.red {
+    opacity: 0;
+  }
+  /* Mostrar el correcto según la vista activa */
+  #about:not(.team-view-active) .pill-quote-glitch.blue,
+  #about.team-view-active .pill-quote-glitch.red {
+    opacity: 0.7;
   }
 
   .about__container {
@@ -515,7 +479,7 @@ input:checked + .slider:before {
 }
 
 /* ==========================================================================
-   5. SECCIÓN TECH STACK -- SOLUCIÓN DEFINITIVA Y FINAL
+   5. SECCIÓN TECH STACK
    ========================================================================== */
 
 #tech-stack {
@@ -586,7 +550,7 @@ input:checked + .slider:before {
 }
 
 /* ==========================================================================
-   6. SECCIÓN PROYECTOS -- MODAL REFINADA
+   6. SECCIÓN PROYECTOS -- MODAL DE PROYECTOS
    ========================================================================== */
 #proyectos {
   padding: 6rem 0;
@@ -642,7 +606,6 @@ input:checked + .slider:before {
    ========================================================================== */
 
 .modal__content {
-  /* ... (resto de reglas del modal__content) ... */
   height: auto; /* Permitir que el contenido defina la altura */
   max-height: 90vh; /* Límite para no ocupar toda la pantalla en móvil */
   overflow-y: auto; /* Añadir scroll si el contenido es muy largo */
@@ -708,26 +671,32 @@ input:checked + .slider:before {
 }
 
 /* ==========================================================================
-   8. SECCIÓN CONTACTO (Refinada)
+   8. SECCIÓN CONTACTO
    ========================================================================== */
+
 #contacto {
   padding: 8rem 0;
   text-align: center;
+  position: relative; /* Contexto para el easter egg del conejo */
+  overflow-x: clip; /* Evita desbordamientos horizontales inesperados */
 }
+
 .contacto__subtitle {
   max-width: 600px;
   margin: 0 auto 3rem auto;
   color: var(--color-text-secondary);
   font-size: 1.1rem;
 }
+
 .contacto__links {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 2rem;
+  gap: 1.5rem; /* Espaciado reducido para mejor ajuste en pantallas medianas */
+  flex-wrap: wrap; /* Permite que los botones pasen a la siguiente línea si no caben */
 }
 .contacto__links img {
-  height: 40px; /* Botones más grandes */
+  height: 45px; /* Altura final de los botones */
   transition: transform var(--transition-speed);
 }
 .contacto__links a:hover img {
@@ -735,8 +704,36 @@ input:checked + .slider:before {
   filter: drop-shadow(0 0 10px #fff);
 }
 
+/* ==========================================================
+   EASTER EGG: CONEJO
+   ========================================================== */
+.rabbit-container {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  display: block; /* Para que la transición de opacidad funcione bien */
+  cursor: pointer;
+}
+
+.rabbit-icon {
+  width: 60px;
+  height: auto;
+  filter: brightness(0.7);
+  transform-origin: center right; /* El origen de la animación es el centro-derecha */
+
+  /* La transición incluye la opacidad */
+  transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55),
+    opacity 0.4s ease-out;
+}
+
+/* La animación se activa al hacer hover directamente sobre el contenedor */
+.rabbit-container:hover .rabbit-icon {
+  transform: translateX(120%); /* Se esconde más allá del borde derecho */
+  opacity: 0;
+}
+
 /* ==========================================================================
-   9. FOOTER (Refinado)
+   9. FOOTER
    ========================================================================== */
 footer {
   padding: 2rem 0;
@@ -755,7 +752,7 @@ footer:hover .rabbit-footer-icon {
 }
 
 /* ==========================================================================
-   10. MODALES (Refinado)
+   10. MODALES
    ========================================================================== */
 .modal {
   position: fixed;
@@ -807,72 +804,144 @@ footer:hover .rabbit-footer-icon {
 }
 
 /* ==========================================================================
-   11. MEDIA QUERIES PARA RESPONSIVIDAD (Actualizadas)
+   11. MEDIA QUERIES PARA RESPONSIVIDAD (REFACTORIZACIÓN GLOBAL)
    ========================================================================== */
-@media (max-width: 768px) {
-  body {
-    font-size: 14px;
-  } /* Ajuste base para móviles */
 
-  .hero__title {
-    font-size: 2rem;
-    min-height: 9rem; /* más espacio para 3 líneas */
-  }
-  .hero__subtitle {
-    font-size: 0.9rem;
-  }
-  .terminal-nav {
-    display: none;
-  }
-
-  .section-title {
-    font-size: 2rem;
-  }
-  #about {
-    padding: 4rem 0;
-  }
+/* === VISTA DE TABLET (<= 900px) === */
+@media (max-width: 900px) {
   .toggle-switch-container {
-    flex-direction: column;
-    gap: 0.8rem;
+    padding-bottom: 2rem; /* Espacio para el texto de abajo */
+  }
+  .pill-quote-glitch {
+    /* Desactivar posicionamiento lateral */
+    position: absolute;
+    top: 100%; /* Posicionar DEBAJO del contenedor del toggle */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%; /* Ocupar todo el ancho para centrar texto */
+    text-align: center;
+    margin: 1rem 0 0 0; /* Margen superior */
+  }
+  /* Ocultar ambos textos por defecto */
+  .pill-quote-glitch.blue,
+  .pill-quote-glitch.red {
+    opacity: 0;
+  }
+  /* Mostrar el correcto según la vista activa */
+  #about:not(.team-view-active) .pill-quote-glitch.blue,
+  #about.team-view-active .pill-quote-glitch.red {
+    opacity: 0.7;
   }
 
   .about__container {
     flex-direction: column;
-    text-align: center;
   }
   .about__left {
-    max-width: 200px; /* Tamaño de avatar más proporcionado */
-    margin: 0 auto 2rem auto;
+    position: static;
+    max-width: 300px; /* Un poco más grande en tablet */
+    margin: 0 auto 3rem;
   }
-  .faq-question {
-    text-align: left;
-  } /* Mantener el texto alineado a la izquierda */
+  .about__right {
+    flex-basis: 100%;
+  }
 
+  /* Hacer que el marco de la terminal sea menos intrusivo */
+  .terminal-frame {
+    backdrop-filter: none;
+  }
+}
+
+/* === VISTA DE MÓVIL (<= 768px) === */
+@media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+
+  /* --- HERO SECTION --- */
+  #hero {
+    padding: 1rem;
+  }
+
+  .hero__title {
+    font-size: clamp(1.8rem, 7vw, 2.5rem); /* Fuente fluida que se adapta */
+    min-height: 8rem;
+  }
+  .hero__subtitle {
+    font-size: 0.9rem;
+  }
+
+  /* FIX: Visibilidad del nav en móvil */
+  .terminal-header {
+    position: relative; /* Contexto para el menú móvil */
+  }
+  .terminal-nav {
+    /* Oculto por defecto, se mostrará como menú desplegable (futura mejora) o se prioriza el espacio */
+    display: flex;
+  }
+  /* Como alternativa simple y efectiva, podemos reducir los márgenes y el tamaño */
+  .terminal-nav a {
+    font-size: 0.9rem;
+    margin: 0 0.5rem;
+  }
+
+  /* --- SECCIONES GENERALES --- */
+  .section-title {
+    font-size: 2rem;
+  }
+  #about,
   #proyectos,
   #tech-stack,
   #contacto {
     padding: 4rem 0;
   }
+  #about {
+    min-height: auto;
+  } /* Permitir que el contenido defina la altura */
 
+  /* --- SECCIÓN ABOUT --- */
+  .toggle-switch-container {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .about__container {
+    text-align: left;
+  } /* Devolver texto a la izquierda para legibilidad */
+  .about__left {
+    max-width: 200px;
+  }
+  .faq-question {
+    text-align: left;
+  }
+
+  /* --- SECCIÓN TECH STACK --- */
   .tech-stack__grid {
-    grid-template-columns: repeat(
-      auto-fill,
-      minmax(80px, 1fr)
-    ); /* Logos más pequeños */
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+    gap: 2.5rem 1.5rem;
   }
   .tech-item img {
-    height: 45px;
+    /* Las insignias se redimensionan solas, pero forzamos el contenedor a no ser más grande */
+    height: auto;
   }
 
-  .projects__grid {
-    grid-template-columns: 1fr; /* Una columna en móvil */
-  }
-
+  /* --- MODALES Y CONTACTO --- */
   .modal__content {
     padding: 2rem 1.5rem;
+    width: 95%; /* Que ocupe casi todo el ancho */
   }
-  .modal__title {
+  .modal__title,
+  #modal-proyecto-body h3 {
     font-size: 1.5rem;
+  }
+
+  .contacto__links {
+    flex-direction: column; /* Apilar los botones verticalmente */
+    gap: 1.5rem; /* Espaciado vertical entre botones */
+  }
+
+  .rabbit-hole__container,
+  .rabbit-container {
+    transform: scale(0.8);
+    bottom: 1rem;
+    right: 1rem;
   }
 }

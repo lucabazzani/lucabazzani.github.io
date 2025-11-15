@@ -75,38 +75,31 @@
         </div>
       </section>
 
-      <!-- ============== SECCIÓN SOBRE MÍ Y EQUIPO: DOS CARAS ============== -->
-      <section id="about" data-aos="fade-up">
-        <div class="about-header">
+      <!-- ============== SECCIÓN SOBRE MÍ Y EQUIPO: DOS CARAS (VERSIÓN FINAL CON ANIMACIONES) ============== -->
+      <section id="about">
+        <!-- El data-aos está en el contenedor interno, no en la sección -->
+        <div class="about-header" data-aos="fade-up">
           <div class="toggle-switch-container">
-            <span class="pill-quote-glitch blue"
-              >Tomas la píldora azul, la historia termina...</span
-            >
             <span class="toggle-label blue-pill-text">Sobre Mí</span>
             <label class="toggle-switch">
               <input type="checkbox" id="view-toggle" />
               <span class="slider"></span>
             </label>
             <span class="toggle-label red-pill-text">AlgoDev</span>
-            <span class="pill-quote-glitch red"
-              >Tomas la píldora roja, te quedas en el País de las
-              Maravillas...</span
-            >
           </div>
         </div>
 
         <!-- Vista "Sobre Mí" -->
         <div class="view active" id="about-me-view">
           <div class="container about__container">
-            <div class="about__left">
+            <div class="about__left" data-aos="fade-right" data-aos-delay="200">
               <img
                 src="assets/images/avatar.png"
                 alt="Avatar de Luca Bazzani"
                 class="about__avatar"
               />
             </div>
-            <div class="about__right">
-              <!-- Estructura de FAQs Interactivas (Acordeón) -->
+            <div class="about__right" data-aos="fade-left" data-aos-delay="300">
               <div class="faq-accordion">
                 <div class="faq-item">
                   <button class="faq-question">Formación Académica</button>
@@ -121,8 +114,8 @@
                   <button class="faq-question">Experiencia Clave</button>
                   <div class="faq-answer">
                     <p>
-                      Actualmente estoy desarrollando una aplicación web para un
-                      club deportivo como proyecto de tesis.
+                      Actualmente estoy desarrollando una aplicación web
+                      integral para un club deportivo como proyecto de tesis.
                     </p>
                   </div>
                 </div>
@@ -143,22 +136,21 @@
         <!-- Vista "Sobre mi Equipo" (Idéntica estructura) -->
         <div class="view" id="about-team-view">
           <div class="container about__container">
-            <div class="about__left">
+            <div class="about__left" data-aos="fade-right" data-aos-delay="200">
               <img
                 src="assets/images/team-logo.jpeg"
                 alt="Logo de AlgoDev"
                 class="about__avatar"
               />
             </div>
-            <div class="about__right">
-              <!-- El mismo formato de acordeón para mantener consistencia -->
+            <div class="about__right" data-aos="fade-left" data-aos-delay="300">
               <div class="faq-accordion">
                 <div class="faq-item">
                   <button class="faq-question">¿Quiénes Somos?</button>
                   <div class="faq-answer">
                     <p>
                       Somos una agencia de desarrollo de software que transforma
-                      ideas en soluciones. Algo rápido. Algo facil. AlgoDev.
+                      ideas en soluciones. Algo bueno. Algo rápido. AlgoDev.
                     </p>
                   </div>
                 </div>
@@ -175,7 +167,7 @@
                   <button class="faq-question">¿Cómo contactarnos?</button>
                   <div class="faq-answer">
                     <div class="team-contact-links">
-                      <!-- Los botones se insertarán aquí con JavaScript -->
+                      <!-- Los botones se insertan dinámicamente aquí con JavaScript -->
                     </div>
                   </div>
                 </div>
@@ -356,32 +348,46 @@
         </div>
       </section>
 
-      <!-- ============== SECCIÓN CONTACTO: ACCIÓN FINAL (Restaurada) ============== -->
-      <section id="contacto" data-aos="fade-up">
+      <!-- ============== SECCIÓN CONTACTO: ACCIÓN FINAL (VERSIÓN FINAL CON ANIMACIONES) ============== -->
+      <section id="contacto">
         <div class="container text-center">
-          <h2 class="section-title text-center">// CONTACTO</h2>
-          <p class="contacto__subtitle">
+          <h2 class="section-title text-center" data-aos="fade-up">
+            // CONTACTO
+          </h2>
+          <p class="contacto__subtitle" data-aos="fade-up" data-aos-delay="200">
             ¿Tienes una idea para un proyecto o simplemente quieres charlar
             sobre tecnología?<br />
             Estoy abierto a conectar y explorar nuevas oportunidades.
           </p>
-          <div class="contacto__links">
-            <a href="https://www.linkedin.com/in/bazzaniluca" target="_blank"
-              ><img
+          <div class="contacto__links" data-aos="fade-up" data-aos-delay="400">
+            <a href="https://www.linkedin.com/in/bazzaniluca" target="_blank">
+              <img
                 src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white"
                 alt="Perfil de LinkedIn"
-            /></a>
-            <a href="mailto:luccasbazza@gmail.com"
-              ><img
+              />
+            </a>
+            <a href="mailto:luccasbazza@gmail.com">
+              <img
                 src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white"
                 alt="Enviar un correo"
-            /></a>
-            <a href="https://github.com/lucabazzani" target="_blank"
-              ><img
+              />
+            </a>
+            <a href="https://github.com/lucabazzani" target="_blank">
+              <img
                 src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white"
                 alt="Perfil de GitHub"
-            /></a>
+              />
+            </a>
           </div>
+
+          <!-- Contenedor del Conejo (sin data-aos para que sea visible siempre) -->
+          <a href="#" class="rabbit-container">
+            <img
+              src="assets/images/rabbit-icon.png"
+              alt="White Rabbit Easter Egg"
+              class="rabbit-icon"
+            />
+          </a>
         </div>
       </section>
     </main>
