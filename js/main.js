@@ -1,294 +1,200 @@
-// Espera a que todo el contenido del DOM esté cargado
-document.addEventListener("DOMContentLoaded", function () {
-  // =========================================================================
-  // 1. INICIALIZACIÓN DE LIBRERÍAS
-  // =========================================================================
+/**
+ * CORE ARCHITECTURE V2.0 - BY LUCA BAZZANI
+ * Senior-level logic for terminal-interface, view transitions and easter eggs.
+ */
+
+document.addEventListener("DOMContentLoaded", () => {
+  // -------------------------------------------------------------------------
+  // 1. SYSTEM INITIALIZATION (Libraries)
+  // -------------------------------------------------------------------------
+
+  // Animate On Scroll (AOS) - Configuración para entrada técnica
   AOS.init({
-    duration: 1500,
+    duration: 800, // Entradas más rápidas y precisas
+    easing: "ease-out-quad",
     once: true,
   });
 
-  // --- Configuración centralizada de Typed.js ---
+  // TYPED.JS CONFIG - Estética de comandos de consola
   const typedTarget = "#typed-text";
-
-  // Opciones para la animación original
-  const originalTypedOptions = {
-    strings: ["> Soy Luca Bazzani.^1000", "> Desarrollador de Software.^1000"],
-    typeSpeed: 50,
-    backSpeed: 25,
-    backDelay: 1500,
+  const baseOptions = {
+    strings: [
+      "> Iniciando",
+      "> Luca Bazzani",
+      "> Software Developer",
+      "> Innovative Solutions",
+      "> TodoNerds Founder",
+      "> Let's Connect",
+    ],
+    typeSpeed: 30,
+    backSpeed: 15,
+    backDelay: 2000,
     loop: true,
-    smartBackspace: true,
-    cursorChar: "|",
+    cursorChar: "▮", // Cursor tipo bloque (más senior/vintage)
   };
 
-  // Declaramos la variable que contendrá la instancia de Typed
-  // Usamos 'let' para poder reasignarla
-  let typedHeroInstance = new Typed(typedTarget, originalTypedOptions);
+  let heroTyped = new Typed(typedTarget, baseOptions);
 
-  // =========================================================================
-  // 2. LÓGICA DE MODAL DE PROYECTOS (Sin cambios)
-  // =========================================================================
-  const proyectoModal = document.getElementById("modal-proyecto");
-  const modalProyectoBody = document.getElementById("modal-proyecto-body");
-  const closeProyectoModalBtn = document.getElementById("close-proyecto-modal");
-  const projectCards = document.querySelectorAll(".project-card");
+  // -------------------------------------------------------------------------
+  // 2. PROJECT ENGINE (Modal System)
+  // -------------------------------------------------------------------------
 
   const projectData = {
     1: {
-      title: "Bolívar Connect",
-      type: "Aplicación de Escritorio Standalone",
+      title: "BOLÍVAR CONNECT",
+      type: "Desktop App / System Core",
       details:
-        'Desarrollada para ofrecer una solución robusta y centralizada, esta aplicación optimiza los procesos administrativos del club, reduciendo el trabajo manual y mejorando la precisión de los datos. La <span class="easter-egg-word" data-egg-text="There is no spoon.">gestión</span> de la interfaz, construida con JavaFX, fue diseñada para ser intuitiva y fácil de usar para personal no técnico.',
+        "Software de gestión administrativa diseñado con JavaFX para optimizar la digitalización institucional. Enfoque en eficiencia de procesos y persistencia de datos segura.",
       tech: ["Java", "JavaFX", "MySQL"],
+      egg: "No_Spoon",
     },
     2: {
-      title: "Inova Nexus",
-      type: "App Móvil Nativa para Android",
+      title: "INOVA NEXUS",
+      type: "Mobile OS Application",
       details:
-        "Inova Nexus es una herramienta integral pensada por y para amantes de la literatura. Permite a los usuarios organizar sus lecturas, hacer seguimiento de su progreso de escritura y tomar notas. La arquitectura nativa en Kotlin asegura un rendimiento fluido y una experiencia de usuario óptima.",
-      tech: ["Kotlin", "Android Nativo", "SQLite"],
+        "Plataforma móvil nativa orientada a la gestión literaria. Implementada bajo estándares Clean Architecture en Kotlin para garantizar máxima escalabilidad.",
+      tech: ["Kotlin", "SQLite", "Firebase"],
+      egg: "Kung_Fu",
     },
     3: {
-      title: "Calcutron",
-      type: "Herramienta de Cómputo para Escritorio",
+      title: "CALCUTRON",
+      type: "Scientific Computing Tool",
       details:
-        'Inspirada en la estética retro-futurista de "Tron", esta aplicación combina funcionalidad con un diseño único, proveyendo soluciones visuales para problemas de estadística, operaciones con matrices y cálculo de integrales.',
-      tech: ["Java", "JavaFX"],
+        "Calculadora de análisis numérico inspirada en sistemas retro-futuristas. Procesamiento avanzado de matrices y modelos estadísticos.",
+      tech: ["Java", "VLC Libraries"],
+      egg: "Follow_The_Rabbit",
     },
   };
 
-  projectCards.forEach((card) => {
-    card.addEventListener("click", () => {
-      const projectId = card.dataset.projectId;
-      const data = projectData[projectId];
+  const modal = {
+    el: document.getElementById("modal-proyecto"),
+    body: document.getElementById("modal-proyecto-body"),
+    closeBtn: document.getElementById("close-proyecto-modal"),
 
-      modalProyectoBody.innerHTML = `
-                <h3 class="modal__title">${data.title}</h3>
-                <p><strong>Tipo:</strong> ${data.type}</p>
-                <p>${data.details}</p>
-                <div class="project-card__tech">
-                    ${data.tech.map((t) => `<span>${t}</span>`).join("")}
+    open(id) {
+      const data = projectData[id];
+      if (!data) return;
+
+      this.body.innerHTML = `
+                <h3 class="accent">// ${data.title}</h3>
+                <p class="project-type">${data.type}</p>
+                <p class="project-desc">${data.details}</p>
+                <div class="modal-tech-grid">
+                    ${data.tech.map((t) => `<span class="tech-tag">${t}</span>`).join("")}
                 </div>
-                <button href="#contacto" class="modal-cta-button" id="modal-contact-btn">Solicitar Proyecto Similar</button>
+                <div class="modal-footer">
+                    <button class="cta-primary" id="modal-cta-close">FINALIZAR CONEXIÓN</button>
+                </div>
             `;
+      this.el.classList.add("active");
 
-      proyectoModal.classList.add("active");
+      // Re-asignar eventos a los nuevos botones inyectados
+      document.getElementById("modal-cta-close").onclick = () => this.close();
+    },
+    close() {
+      this.el.classList.remove("active");
+    },
+  };
 
-      const eggWord = modalProyectoBody.querySelector(".easter-egg-word");
-      if (eggWord) {
-        eggWord.addEventListener("click", triggerNoSpoonEasterEgg);
-      }
-
-      document
-        .getElementById("modal-contact-btn")
-        .addEventListener("click", () => {
-          proyectoModal.classList.remove("active");
-          document
-            .getElementById("contacto")
-            .scrollIntoView({ behavior: "smooth" });
-        });
-    });
+  // Eventos de Proyectos
+  document.querySelectorAll(".project-card").forEach((card) => {
+    card.addEventListener("click", () => modal.open(card.dataset.projectId));
   });
 
-  closeProyectoModalBtn.addEventListener("click", () =>
-    proyectoModal.classList.remove("active")
-  );
-  window.addEventListener("click", (e) => {
-    if (e.target === proyectoModal) proyectoModal.classList.remove("active");
-  });
+  modal.closeBtn.onclick = () => modal.close();
+  window.onclick = (e) => {
+    if (e.target === modal.el) modal.close();
+  };
 
-  // =========================================================================
-  // 3. LÓGICA DE LA SECCIÓN "SOBRE MÍ / EQUIPO" (Solución Definitiva y Final)
-  // =========================================================================
+  // -------------------------------------------------------------------------
+  // 3. UI VIEW TOGGLE (System Overrides)
+  // -------------------------------------------------------------------------
 
   const viewToggle = document.getElementById("view-toggle");
   const aboutSection = document.getElementById("about");
-  const aboutMeView = document.getElementById("about-me-view");
-  const aboutTeamView = document.getElementById("about-team-view");
+  const views = {
+    personal: document.getElementById("about-me-view"),
+    team: document.getElementById("about-team-view"),
+  };
 
-  viewToggle.addEventListener("change", () => {
-    const isTeamView = viewToggle.checked;
-    aboutSection.classList.toggle("team-view-active", isTeamView);
-    if (isTeamView) {
-      aboutMeView.classList.remove("active");
-      aboutTeamView.classList.add("active");
+  viewToggle.addEventListener("change", (e) => {
+    const isTeam = e.target.checked;
+    aboutSection.classList.toggle("team-view-active", isTeam);
+
+    if (isTeam) {
+      views.personal.classList.remove("active");
+      views.team.classList.add("active");
     } else {
-      aboutTeamView.classList.remove("active");
-      aboutMeView.classList.add("active");
+      views.team.classList.remove("active");
+      views.personal.classList.add("active");
     }
   });
 
-  // ==== LÓGICA DE ACORDEÓN FINAL Y ROBUSTA ====
-  document.querySelectorAll(".faq-question").forEach((button) => {
-    button.addEventListener("click", () => {
-      const item = button.closest(".faq-item");
-      const answer = item.querySelector(".faq-answer");
-      const accordion = button.closest(".faq-accordion");
-      const wasActive = item.classList.contains("active");
-
-      // Cerrar todos los items
-      accordion.querySelectorAll(".faq-item").forEach((otherItem) => {
-        otherItem.classList.remove("active");
-        otherItem.querySelector(".faq-answer").style.maxHeight = null;
-      });
-
-      // Abrir el item clickeado si no estaba ya abierto
-      if (!wasActive) {
-        item.classList.add("active");
-        answer.style.maxHeight = answer.scrollHeight + "px";
+  // ACORDEÓN SEMÁNTICO (Mejorado para <details>)
+  // Permite que solo un item esté abierto a la vez en modo "Senior UX"
+  const accordionDetails = document.querySelectorAll(".accordion-item");
+  accordionDetails.forEach((target) => {
+    target.addEventListener("toggle", (e) => {
+      if (target.open) {
+        accordionDetails.forEach((el) => {
+          if (el !== target) el.open = false;
+        });
       }
     });
   });
 
-  // Lógica para el link "AlgoDev" en la nav
-  const navEquipoLink = document.getElementById("nav-equipo-link");
-  navEquipoLink.addEventListener("click", (e) => {
-    e.preventDefault();
-    if (!viewToggle.checked) {
-      viewToggle.click();
-    }
-    document.getElementById("about").scrollIntoView({ behavior: "smooth" });
-  });
+  // -------------------------------------------------------------------------
+  // 4. INTERFERENCE ENGINE (Easter Eggs)
+  // -------------------------------------------------------------------------
 
-  // Inyectar botones de contacto del equipo
-  const teamContactContainer = document.querySelector(".team-contact-links");
-  const teamContacts = [
-    { name: "WhatsApp", icon: "whatsapp", color: "25D366", link: "#" },
-    { name: "Gmail", icon: "gmail", color: "D14836", link: "mailto:#" },
-    { name: "GitHub", icon: "github", color: "181717", link: "#" },
-  ];
-  let contactHTML = "";
-  teamContacts.forEach((contact) => {
-    contactHTML += `
-        <a href="${contact.link}" target="_blank">
-            <img src="https://img.shields.io/badge/${contact.name}-${contact.color}?style=for-the-badge&logo=${contact.icon}&logoColor=white" alt="Contacto de AlgoDev por ${contact.name}"/>
-        </a>
-    `;
-  });
-  teamContactContainer.innerHTML = contactHTML;
+  let interferenceActive = false;
 
-  // =========================================================================
-  // 4. LÓGICA DE EASTER EGGS (Refactorización masiva y final)
-  // =========================================================================
-
-  let easterEggActive = false; // Flag para evitar múltiples clics
-  const rabbitBtn = document.getElementById("rabbit-btn");
-
-  rabbitBtn.addEventListener("click", () => {
-    if (easterEggActive) return;
-
-    easterEggActive = true;
-    const heroTitle = document.querySelector(".hero__title");
-
-    // 1. Aplicar efectos visuales
-    document.body.classList.add("glitch-active");
-    heroTitle.classList.add("egg-active");
-
-    // 2. Destruir animación existente y crear la del conejo
-    typedHeroInstance.destroy();
-    const rabbitTyped = new Typed(typedTarget, {
-      strings: ["> Follow the white rabbit..."],
-      typeSpeed: 50,
-      loop: false,
-      showCursor: true,
-      cursorChar: "|",
-      onComplete: (self) => {
-        setTimeout(() => {
-          // 3. Restaurar la normalidad visual
-          document.body.classList.remove("glitch-active");
-          heroTitle.classList.remove("egg-active");
-
-          self.destroy(); // Destruir animación del conejo
-
-          // 4. Restaurar la animación original
-          typedHeroInstance = new Typed(typedTarget, originalTypedOptions);
-
-          // 5. Scroll final al footer
-          document
-            .querySelector("footer")
-            .scrollIntoView({ behavior: "smooth" });
-
-          easterEggActive = false; // Liberar el flag
-        }, 1500); // Pausa de 1.5s
-      },
-    });
-  });
-
-  // --- 4.2 "Un Fallo en la Matrix" (CORREGIDO PARA SER REPETIBLE) ---
-  const techItems = document.querySelectorAll(".tech-item");
-
-  function assignGlitchEasterEgg() {
-    // Si ya existe un glitch-egg, lo quitamos antes de asignar uno nuevo
-    const existingGlitch = document.querySelector(".glitch-egg");
-    if (existingGlitch) {
-      // Clonamos y reemplazamos el nodo para eliminar todos los listeners antiguos
-      const newEl = existingGlitch.cloneNode(true);
-      existingGlitch.parentNode.replaceChild(newEl, existingGlitch);
-      newEl.classList.remove("glitch-egg");
-    }
-
-    if (techItems.length > 0) {
-      const randomIndex = Math.floor(Math.random() * techItems.length);
-      const glitchItem = techItems[randomIndex];
-
-      glitchItem.classList.add("glitch-egg");
-
-      // Creamos una función nombrada para poder eliminarla y re-añadirla
-      const glitchClickHandler = () => {
-        // El resto de la lógica del easter egg es el mismo
-        triggerGlitchEasterEgg("I know Kung Fu...");
-        // Una vez usado, se quita la clase para que el usuario no lo clickee
-        // varias veces seguidas mientras la animación ocurre.
-        glitchItem.classList.remove("glitch-egg");
-      };
-
-      glitchItem.addEventListener("click", glitchClickHandler);
-    }
-  }
-
-  // Y la función genérica ahora tiene la responsabilidad de reasignar el easter egg al terminar
-  function triggerGlitchEasterEgg(text) {
-    if (easterEggActive) return;
-    easterEggActive = true;
+  function triggerSystemInterference(msg, callback = null) {
+    if (interferenceActive) return;
+    interferenceActive = true;
 
     document.body.classList.add("glitch-active");
-    document.querySelector(".hero__title").classList.add("egg-active");
+    heroTyped.destroy();
 
-    document.getElementById("hero").scrollIntoView({ behavior: "smooth" });
-
-    typedHeroInstance.destroy();
-    const eggTyped = new Typed("#typed-text", {
-      strings: [`> ${text}`],
-      typeSpeed: 50,
-      loop: false,
-      showCursor: true,
-      cursorChar: "|",
+    new Typed(typedTarget, {
+      strings: [`> ${msg}`],
+      typeSpeed: 20,
+      showCursor: false,
       onComplete: (self) => {
         setTimeout(() => {
           document.body.classList.remove("glitch-active");
-          document.querySelector(".hero__title").classList.remove("egg-active");
           self.destroy();
-          typedHeroInstance = new Typed("#typed-text", originalTypedOptions);
-          easterEggActive = false;
-          // asignamos el easter egg a un nuevo ícono aleatorio.
-          assignGlitchEasterEgg();
-        }, 2500);
+          heroTyped = new Typed(typedTarget, baseOptions);
+          interferenceActive = false;
+          if (callback) callback();
+        }, 2000);
       },
     });
   }
 
-  // Iniciar la asignación del primer easter egg al cargar la página
-  assignGlitchEasterEgg();
+  // Conejo Blanco Trigger
+  const rabbitBtn = document.getElementById("rabbit-btn");
+  rabbitBtn.onclick = () => {
+    triggerSystemInterference("FOLLOW THE WHITE RABBIT...", () => {
+      document.querySelector("footer").scrollIntoView({ behavior: "smooth" });
+    });
+  };
 
-  // --- 4.3 "There is no spoon" (Simplificado) ---
-  function triggerNoSpoonEasterEgg() {
-    // Cerramos la modal
-    proyectoModal.classList.remove("active");
-
-    // Esperamos a que se cierre y luego llamamos a la función genérica
-    setTimeout(() => {
-      triggerGlitchEasterEgg("There is no spoon...");
-    }, 300); // Coincide con la duración de la transición del modal
+  // Glitch aleatorio en Tech-Stack
+  const techItems = document.querySelectorAll(".tech-item");
+  if (techItems.length) {
+    const luckyItem = techItems[Math.floor(Math.random() * techItems.length)];
+    luckyItem.addEventListener("click", () =>
+      triggerSystemInterference("FATAL ERROR: KUNG_FU_INSTALLED"),
+    );
   }
+
+  // -------------------------------------------------------------------------
+  // 5. SYSTEM CONSOLE LOG (Toque final del Desarrollador Senior)
+  // -------------------------------------------------------------------------
+  console.log(
+    "%c // BAZZANI SYSTEM // %c Proyectos estables. ",
+    "background: #00ff41; color: #0d0d0d; font-weight: bold; padding: 2px 5px; border-radius: 2px;",
+    "color: #00ff41;",
+  );
 });
