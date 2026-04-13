@@ -1,50 +1,55 @@
 /**
- * MATRIX RAIN ENGINE V2.0 (High Performance Edition)
- * Optimización basada en requestAnimationFrame y sincronización con CSS Variables.
+ * MATRIX BENTO-ENGINE V3.0 (Multi-Instance Edition)
+ * Optimizado para renderizar múltiples lienzos en una grilla dinámica.
  */
 
 (function () {
-  const canvas = document.getElementById("matrix-canvas");
-  const ctx = canvas.getContext("2d");
-
-  let fontSize = 14; // Un poco más grande para mejor legibilidad en pantallas retina
-  let columns = 0;
-  let drops = [];
+  const fontSize = 14;
+  const fps = 24;
+  let lastTime = 0;
   let letters =
     "ABCDEFGHIJKLMNOPQRSTUVXYZ0123456789$+-*/=%\"\'#&_(),.;:?!\\|{}[]".split(
       "",
     );
 
-  // Control de FPS para mantener la estética "cine" de Matrix (entre 20 y 30 fps)
-  const fps = 24;
-  let lastTime = 0;
+  // Almacenaremos la configuración de cada celda aquí
+  let engines = [];
 
   /**
-   * Inicializa o reinicia las columnas del canvas sin perder totalmente el progreso
+   * Inicializa cada canvas encontrado en la grilla bento
    */
-  function setupCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+  function setupEngines() {
+    engines = []; // Reset
+    const canvases = document.querySelectorAll(".matrix-canvas");
 
-    columns = Math.floor(canvas.width / fontSize);
+    canvases.forEach((canvas) => {
+      const parent = canvas.parentElement;
 
-    // Si redimensionamos, mantenemos los drops actuales y rellenamos solo si faltan
-    let newDrops = [];
-    for (let i = 0; i < columns; i++) {
-      newDrops[i] = drops[i] || Math.floor(Math.random() * -canvas.height);
-    }
-    drops = newDrops;
+      // Ajustamos el canvas al tamaño real de su celda bento
+      canvas.width = parent.clientWidth;
+      canvas.height = parent.clientHeight;
+
+      const columns = Math.floor(canvas.width / fontSize);
+      const drops = [];
+
+      for (let i = 0; i < columns; i++) {
+        // Inicialización aleatoria para que no todas las lluvias empiecen igual
+        drops[i] = Math.floor(Math.random() * (canvas.height / fontSize));
+      }
+
+      engines.push({
+        canvas,
+        ctx: canvas.getContext("2d"),
+        drops,
+        columns,
+      });
+    });
   }
 
   /**
-   * Obtiene el color dinámico del tema desde CSS para mantener la coherencia
+   * Obtiene el color desde el CSS (sincronizado con tus variables)
    */
   function getActiveThemeColor() {
-    const body = document.body;
-    // Si el título está en estado "Easter Egg", usamos el color de acento de error (Naranja/Rojo)
-    if (body.classList.contains("glitch-active")) return "#ff3131";
-
-    // Por defecto, obtenemos la variable del color Matrix configurada en el :root de CSS
     return (
       getComputedStyle(document.documentElement)
         .getPropertyValue("--c-matrix")
@@ -52,52 +57,56 @@
     );
   }
 
-  function draw(currentTime) {
-    // Calculamos el tiempo transcurrido desde el último frame
+  /**
+   * Ciclo de dibujo único para todas las celdas
+   */
+  function animate(currentTime) {
     const deltaTime = currentTime - lastTime;
 
-    // Solo dibujamos si ha pasado el tiempo suficiente según nuestros FPS objetivo
     if (deltaTime > 1000 / fps) {
       lastTime = currentTime;
+      const themeColor = getActiveThemeColor();
 
-      // Efecto rastro (Fade): Usamos un color oscuro con poca opacidad
-      // El color de fondo debe coincidir con --c-matrix-bg del CSS
-      ctx.fillStyle = "rgba(13, 13, 13, 0.15)";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      // Iteramos por cada motor (cada celda bento)
+      engines.forEach((engine) => {
+        const { ctx, canvas, drops, columns } = engine;
 
-      ctx.font = `${fontSize}px var(--f-mono)`;
-      ctx.fillStyle = getActiveThemeColor();
+        // Efecto rastro (Fade)
+        ctx.fillStyle = "rgba(13, 13, 13, 0.15)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      for (let i = 0; i < drops.length; i++) {
-        const text = letters[Math.floor(Math.random() * letters.length)];
+        ctx.font = `${fontSize}px var(--f-mono)`;
+        ctx.fillStyle = themeColor;
 
-        // Dibujamos el caracter. Usamos x = i * fontSize
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        for (let i = 0; i < drops.length; i++) {
+          const text = letters[Math.floor(Math.random() * letters.length)];
 
-        // Si la gota llega al final o por azar después de tocar el borde inferior
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-          drops[i] = 0;
+          // x = posición de columna, y = posición de la gota
+          ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+          // Reset de la gota si llega al final
+          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+          }
+
+          drops[i]++;
         }
-
-        drops[i]++;
-      }
+      });
     }
 
-    // Solicitamos el siguiente frame al navegador
-    requestAnimationFrame(draw);
+    requestAnimationFrame(animate);
   }
 
-  // --- EJECUCIÓN ---
+  // --- CONTROL DE EJECUCIÓN ---
 
-  // Configuración inicial
-  setupCanvas();
+  // Inicializamos todos los canvas al cargar
+  setupEngines();
 
-  // Lanzamos la animación usando el estándar del navegador
-  requestAnimationFrame(draw);
+  // Iniciamos el loop de animación
+  requestAnimationFrame(animate);
 
-  // Escucha inteligente de resize (sin resetear toda la animación)
+  // Escucha inteligente para reajustar los tamaños al cambiar la ventana
   window.addEventListener("resize", () => {
-    // Podríamos añadir un pequeño debounce aquí, pero setupCanvas es ligero
-    setupCanvas();
+    setupEngines();
   });
 })();

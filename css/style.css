@@ -1,13 +1,27 @@
+/* ==========================================================================
+   1. CORE & VARIABLES (MATRIX-BENTO EDITION)
+   ========================================================================== */
+
 :root {
+  /* Paleta Matrix Pro */
   --c-matrix: #00ff41;
+  --c-matrix-dim: rgba(0, 255, 65, 0.1);
   --c-matrix-bg: #0d0d0d;
   --c-txt-1: #ffffff;
   --c-txt-2: #a0a0a0;
-  --c-border: rgba(255, 255, 255, 0.1);
+  --c-border: rgba(255, 255, 255, 0.05);
+  --c-glass: rgba(13, 13, 13, 0.85);
+
+  /* Tipografía Senior */
   --f-mono: "Roboto Mono", monospace;
   --f-title: "Stack Sans Notch", sans-serif;
-  --radius: 2px;
+  --radius: 4px;
+  --transit: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+/* ==========================================================================
+   2. ESTRUCTURA GLOBAL (DESKTOP: NO SCROLL)
+   ========================================================================== */
 
 * {
   box-sizing: border-box;
@@ -15,77 +29,104 @@
   padding: 0;
 }
 
+body,
 html {
-  scroll-behavior: smooth;
-  background-color: var(--c-matrix-bg);
-}
-
-body {
+  height: 100vh;
+  width: 100vw;
   background-color: var(--c-matrix-bg);
   color: var(--c-txt-1);
   font-family: var(--f-mono);
   line-height: 1.6;
+  overflow: hidden; /* Fijo en PC, scrollable en Móvil vía Media Query */
 }
 
-/* UTILIDADES */
-.container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
-}
-.section-padding {
-  padding: 8rem 0;
-}
-.text-center {
-  text-align: center;
-}
-.accent {
-  color: var(--c-matrix);
-}
+/* ==========================================================================
+   3. LA GRILLA BENTO (INNOVATIVE LAYOUT)
+   ========================================================================== */
 
-/* HERO - TERMINAL */
-.full-screen-center {
+.bento-container {
+  display: grid;
   height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1.5rem;
+  width: 100vw;
+  padding: 15px;
+  gap: 15px;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(6, 1fr);
 }
 
-.terminal-frame {
-  width: 100%;
-  max-width: 800px;
-  height: 60vh;
-  position: relative;
-  border: 1px solid var(--c-matrix);
-  background: rgba(13, 13, 13, 0.9);
+.bento-item {
   display: flex;
   flex-direction: column;
+  position: relative;
+  background: var(--c-glass);
+  border: 1px solid var(--c-matrix-dim);
+  border-radius: var(--radius);
   overflow: hidden;
+  transition:
+    transform var(--transit),
+    border-color var(--transit),
+    box-shadow var(--transit);
 }
 
-#matrix-canvas {
-  position: absolute;
-  inset: 0;
-  opacity: 0.15;
-}
-
-.terminal-header {
-  padding: 10px 15px;
-  background: #1a1a1a;
-  border-bottom: 1px solid var(--c-border);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.bento-item:hover {
+  transform: scale(1.005);
+  border-color: var(--c-matrix);
+  box-shadow: 0 0 20px rgba(0, 255, 65, 0.05);
   z-index: 10;
 }
 
+/* Lógica de ocupación asimétrica */
+.item-1 {
+  grid-column: 1 / 4;
+  grid-row: 1 / 5;
+} /* Bloque Grande Identity */
+.item-2 {
+  grid-column: 4 / 5;
+  grid-row: 1 / 7;
+} /* Skills Vertical */
+.item-3 {
+  grid-column: 5 / 7;
+  grid-row: 1 / 3;
+}
+.item-4 {
+  grid-column: 5 / 7;
+  grid-row: 3 / 5;
+}
+.item-5 {
+  grid-column: 1 / 4;
+  grid-row: 5 / 7;
+}
+.item-6 {
+  grid-column: 5 / 7;
+  grid-row: 5 / 7;
+}
+
+/* ==========================================================================
+   4. ESTÉTICA DE TERMINAL
+   ========================================================================== */
+
+.terminal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: rgba(26, 26, 26, 0.9);
+  border-bottom: 1px solid var(--c-border);
+  font-size: 0.65rem;
+  letter-spacing: 1px;
+  color: var(--c-txt-2);
+  text-transform: uppercase;
+  z-index: 5;
+}
+
+.terminal-controls {
+  display: flex;
+  gap: 6px;
+}
 .dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  display: inline-block;
-  margin-right: 5px;
 }
 .red {
   background: #ff5f56;
@@ -97,82 +138,452 @@ body {
   background: #27c93f;
 }
 
-.icon-btn {
-  background: none;
-  border: none;
-  color: var(--c-matrix);
-  cursor: pointer;
-  font-size: 1rem;
+.bento-content {
+  flex: 1;
+  position: relative;
+  padding: 1.5rem;
+  overflow: hidden;
 }
 
-.hero__content {
-  flex: 1;
-  padding: 2.5rem;
+.matrix-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+.inner-data {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  z-index: 10;
 }
 
-.hero__title {
-  font-size: clamp(1.8rem, 5vw, 3rem);
-  margin-bottom: 1rem;
+/* ==========================================================================
+   5. CONTENIDOS ESPECÍFICOS (BLOQUES)
+   ========================================================================== */
+
+/* --- BLOQUE 1: IDENTITY --- */
+.main-identity {
+  justify-content: center;
 }
-.hero__subtitle {
+
+.bento-hero-title {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  margin-bottom: 1rem;
+  line-height: 1.1;
+}
+
+.bento-description {
   font-size: 1rem;
   color: var(--c-txt-2);
+  margin-bottom: 1.5rem;
+  max-width: 90%;
+}
+
+.system-logs {
+  font-size: 0.85rem;
+  background: rgba(0, 255, 65, 0.03);
+  padding: 1rem;
   border-left: 2px solid var(--c-matrix);
-  padding-left: 1.5rem;
 }
 
-/* TECH STACK */
-.tech-stack__grid-v2 {
+.log-line {
+  margin-bottom: 0.4rem;
+  font-weight: bold;
+}
+.accent {
+  color: var(--c-matrix);
+}
+
+/* --- BLOQUE 2: SKILLS --- */
+.skill-list-terminal {
+  justify-content: space-between;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.skill-meter-block {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 2px;
+}
+.meter-labels {
+  display: flex;
+  justify-content: space-between;
+}
+.progress-string {
+  letter-spacing: 2px;
+  font-family: var(--f-mono);
+  white-space: nowrap;
+}
+
+.separator {
+  border: none;
+  border-bottom: 1px dashed var(--c-border);
+  margin: 8px 0;
+}
+
+/* ==========================================================================
+   8. RESPONSIVE FIX (DE BENTO A STACK)
+   ========================================================================== */
+
+@media (max-width: 900px) {
+  body,
+  html {
+    overflow-y: auto;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .bento-container {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    gap: 20px;
+  }
+
+  .bento-item {
+    min-height: 380px;
+    grid-column: auto !important;
+    grid-row: auto !important;
+  }
+
+  /* Ajuste BIO */
+  .item-1 {
+    min-height: 480px;
+  }
+  .bento-hero-title {
+    font-size: 1.8rem;
+  }
+  .bento-description {
+    font-size: 0.95rem;
+    max-width: 100%;
+  }
+
+  /* Ajuste SKILLS Mobile (Crucial) */
+  .skill-list-terminal {
+    justify-content: flex-start;
+    gap: 15px;
+    font-size: 0.75rem;
+  }
+
+  .progress-string {
+    letter-spacing: 1px; /* Comprimimos los bloques ASCII para que no se desborden */
+    font-size: 0.8rem;
+  }
+
+  .meter-labels {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .terminal-header {
+    font-size: 0.55rem;
+  }
+  .bento-hero-title {
+    font-size: 1.4rem;
+  }
+
+  /* Ajuste fino para barras de carga en pantallas diminutas */
+  .progress-string {
+    letter-spacing: 0px;
+    font-size: 0.7rem;
+  }
+}
+
+/* --- BLOQUE 3: SYSTEM MONITOR --- */
+.system-monitor {
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+}
+
+.status-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  color: var(--c-matrix);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--c-matrix);
+  border-radius: 50%;
+  /* Efecto parpadeo de conexión activa */
+  animation: blink-status 1s infinite;
+}
+
+.uptime-display {
+  font-family: var(--f-mono);
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  font-weight: 700;
+  color: var(--c-txt-1);
+  text-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+}
+
+.location-info {
+  width: 100%;
+  font-size: 0.75rem;
+  border-top: 1px solid var(--c-border);
+  padding-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.info-row {
+  display: flex;
+  gap: 5px;
+}
+.info-row .label {
+  color: var(--c-txt-2);
+}
+.info-row .value {
+  color: var(--c-matrix);
+  font-weight: bold;
+}
+
+/* ANIMACIÓN PARPADEO */
+@keyframes blink-status {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(1.2);
+  }
+}
+
+/* RESPONSIVE PARA EL MONITOR */
+@media (max-width: 900px) {
+  /* ... tus otras reglas de bento-item y .item-1 ... */
+
+  /* FIX: Reducimos el alto forzado del Bloque 3 en celular */
+  .bento-item.item-3 {
+    min-height: 220px !important; /* Altura más baja para que no sobre espacio */
+  }
+
+  /* Ajustamos la distribución interna */
+  .system-monitor {
+    justify-content: center; /* En lugar de space-around, centramos */
+    gap: 15px; /* Damos un espacio manual controlado entre el estado, reloj y loc */
+    padding: 1rem 0;
+  }
+
+  .uptime-display {
+    font-size: 2.5rem;
+    line-height: 1; /* Eliminamos el extra de altura de línea del reloj */
+  }
+
+  .location-info {
+    width: 90%; /* Cerramos un poco el ancho */
+    margin-top: 5px;
+    font-size: 0.7rem; /* Texto un poco más técnico y pequeño */
+  }
+}
+
+/* --- BLOQUE 4: PROJECT TERMINAL --- */
+.project-terminal {
+  justify-content: space-between;
+  height: 100%;
+}
+
+.project-header {
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+
+.project-description {
+  font-size: 0.85rem;
+  color: var(--c-txt-2);
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.project-meta {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.project-meta .tag {
+  font-size: 0.65rem;
+  color: var(--c-matrix);
+  background: rgba(0, 255, 65, 0.05);
+  border: 1px solid var(--c-matrix-dim);
+  padding: 2px 6px;
+  border-radius: 2px;
+}
+
+.repo-link {
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: var(--c-txt-1);
+  text-decoration: none;
+  transition: var(--transit);
+}
+
+.repo-link:hover {
+  color: var(--c-matrix);
+  letter-spacing: 1px;
+}
+
+/* RESPONSIVE FIX BLOQUE 4 */
+@media (max-width: 900px) {
+  .item-4 {
+    min-height: 250px !important; /* Más bajo que el Bio para no desperdiciar scroll */
+  }
+
+  .project-header {
+    font-size: 0.9rem;
+  }
+  .project-description {
+    font-size: 0.85rem;
+  }
+}
+
+/* --- BLOQUE 5: COMMS UPLINK --- */
+.comms-section {
   justify-content: center;
-  gap: 2rem;
-  margin-top: 3rem;
+  height: 100%;
+  gap: 15px;
 }
 
-.tech-item img {
-  height: 30px;
-  filter: grayscale(1);
-  transition: 0.3s;
+.comms-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  font-weight: bold;
+  border-bottom: 1px solid var(--c-border);
+  padding-bottom: 8px;
+  margin-bottom: 10px;
 }
 
-.tech-item:hover img {
-  filter: grayscale(0);
+.comms-grid {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.comm-node {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--c-border);
+  padding: 12px;
+  text-decoration: none;
+  color: var(--c-txt-1);
+  transition: var(--transit);
+}
+
+.comm-node i {
+  font-size: 1.4rem;
+  color: var(--c-matrix);
+}
+
+.node-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.node-label {
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+.node-status {
+  font-size: 0.6rem;
+  color: var(--c-txt-2);
+}
+
+.comm-node:hover {
+  border-color: var(--c-matrix);
+  background: var(--c-matrix-dim);
   transform: translateY(-3px);
 }
 
-/* CONTACTO */
-.contacto__social {
-  display: flex;
-  justify-content: center;
-  gap: 1.5rem;
-  margin-top: 3rem;
+/* RESPONSIVE FIX BLOQUE 5 */
+@media (max-width: 900px) {
+  .item-5 {
+    min-height: 300px !important;
+  }
+  .comms-grid {
+    flex-direction: column; /* Apilamos las redes en móvil */
+    width: 100%;
+  }
+  .comm-node {
+    width: 100%;
+  }
 }
 
-.social-link {
-  color: var(--c-matrix);
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 0.9rem;
-  padding: 10px 20px;
-  border: 1px solid var(--c-matrix);
-  transition: 0.3s;
+/* --- BLOQUE 6: EXPERIMENTAL RADAR --- */
+.abstract-module {
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
 }
 
-.social-link:hover {
+.radar-container {
+  position: relative;
+  width: 80%;
+  aspect-ratio: 1/1; /* Mantiene la forma circular */
+  margin: auto;
+  border-radius: 50%;
+  border: 1px solid var(--c-matrix-dim);
+  overflow: hidden;
+}
+
+#radar-canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.radar-scan {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 2px;
   background: var(--c-matrix);
-  color: var(--c-matrix-bg);
+  box-shadow: 0 0 15px var(--c-matrix);
+  transform-origin: left;
+  animation: radar-sweep 4s linear infinite;
 }
 
-/* FOOTER */
-.terminal-footer {
-  text-align: center;
-  padding: 4rem 0;
-  font-size: 0.7rem;
-  letter-spacing: 4px;
-  color: var(--c-txt-2);
+.module-status {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.65rem;
+  font-weight: bold;
+}
+
+@keyframes radar-sweep {
+  from {
+    transform: rotate(0deg) translate(0, -50%);
+  }
+  to {
+    transform: rotate(360deg) translate(0, -50%);
+  }
+}
+
+@media (max-width: 900px) {
+  .item-6 {
+    min-height: 250px !important;
+  }
 }

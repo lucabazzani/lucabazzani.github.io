@@ -21,9 +21,9 @@ document.addEventListener("DOMContentLoaded", () => {
     strings: [
       "> Iniciando",
       "> Luca Bazzani",
-      "> Software Developer",
-      "> Innovative Solutions",
-      "> TodoNerds Founder",
+      "> Software Dev",
+      "> Innovative",
+      "> TodoNerds",
       "> Let's Connect",
     ],
     typeSpeed: 30,
@@ -198,3 +198,68 @@ document.addEventListener("DOMContentLoaded", () => {
     "color: #00ff41;",
   );
 });
+
+// --- LÓGICA DEL MONITOR DE SISTEMA (BLOQUE 3) ---
+
+// 1. Reloj en tiempo real
+function updateClock() {
+  const timeDisplay = document.getElementById("current-time");
+  if (!timeDisplay) return;
+
+  const now = new Date();
+  const h = String(now.getHours()).padStart(2, "0");
+  const m = String(now.getMinutes()).padStart(2, "0");
+  const s = String(now.getSeconds()).padStart(2, "0");
+
+  timeDisplay.textContent = `${h}:${m}:${s}`;
+}
+
+// 2. Simulación de Latencia (Ping)
+function updatePing() {
+  const pingDisplay = document.getElementById("random-ping");
+  if (!pingDisplay) return;
+
+  const randomPing = Math.floor(Math.random() * (25 - 10 + 1)) + 10;
+  pingDisplay.textContent = `${randomPing}ms`;
+}
+
+// Iniciar intervalos
+setInterval(updateClock, 1000);
+setInterval(updatePing, 3000);
+updateClock(); // Llamada inicial para evitar delay
+
+// --- LÓGICA DEL RADAR (BLOQUE 6) ---
+function initRadar() {
+  const canvas = document.getElementById("radar-canvas");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+
+  canvas.width = 200;
+  canvas.height = 200;
+  const centerX = canvas.width / 2;
+  const centerY = canvas.height / 2;
+
+  function drawRadarGrid() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.strokeStyle = "rgba(0, 255, 65, 0.1)";
+    ctx.lineWidth = 1;
+
+    // Círculos concéntricos
+    for (let i = 1; i <= 4; i++) {
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, (canvas.width / 2) * (i / 4), 0, Math.PI * 2);
+      ctx.stroke();
+    }
+
+    // Cruces de eje
+    ctx.beginPath();
+    ctx.moveTo(centerX, 0);
+    ctx.lineTo(centerX, canvas.height);
+    ctx.moveTo(0, centerY);
+    ctx.lineTo(canvas.width, centerY);
+    ctx.stroke();
+  }
+
+  setInterval(drawRadarGrid, 100);
+}
+initRadar();

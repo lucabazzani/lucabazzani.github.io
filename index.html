@@ -1,19 +1,15 @@
 <!doctype html>
 <html lang="es">
   <head>
-    <!-- ============== METADATOS ESENCIALES ============== -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Portafolio Profesional de Luca Bazzani - Software Developer. Especialista en arquitecturas robustas y experiencias digitales inmersivas."
+      content="Luca Bazzani // Software Developer - Interactive Bento Portfolio."
     />
-    <meta name="author" content="Luca Bazzani" />
+    <title>Luca Bazzani // Matrix Bento</title>
 
-    <!-- ============== TÍTULO ============== -->
-    <title>Luca Bazzani // Software Developer</title>
-
-    <!-- ============== FUENTES (Tipografía optimizada para lectura técnica) ============== -->
+    <!-- FUENTES -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -21,127 +17,306 @@
       rel="stylesheet"
     />
 
-    <!-- ============== LIBRERÍAS CSS EXTERNAS ============== -->
+    <!-- LIBRERÍAS EXTERNAS -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 
-    <!-- ============== HOJAS DE ESTILO PROPIAS ============== -->
-    <!-- animations.css se carga antes para asegurar que las clases estén listas al renderizar -->
+    <!-- ESTILOS -->
     <link rel="stylesheet" href="css/animations.css" />
     <link rel="stylesheet" href="css/style.css" />
   </head>
-
   <body class="matrix-theme">
-    <main>
-      <!-- ============== SECTION: HERO (TERMINAL DE COMANDOS) ============== -->
-      <section id="hero" class="full-screen-center">
-        <div
-          class="terminal-frame glass-effect"
-          data-aos="zoom-out"
-          data-aos-duration="1200"
-        >
-          <!-- Canvas para lluvia Matrix optimizada -->
-          <canvas id="matrix-canvas"></canvas>
+    <main class="bento-container">
+      <!-- BLOQUE 1: Identidad y Núcleo -->
+      <section
+        class="bento-item item-1 glass-effect terminal-frame"
+        data-aos="zoom-in"
+      >
+        <header class="terminal-header">
+          <div class="terminal-controls">
+            <span class="dot red"></span><span class="dot yellow"></span
+            ><span class="dot green"></span>
+          </div>
+        </header>
+        <div class="bento-content">
+          <canvas class="matrix-canvas"></canvas>
+          <div class="inner-data main-identity">
+            <!-- Título con efecto Typed -->
+            <h1 class="hero__title bento-hero-title">
+              <span id="typed-text"></span>
+            </h1>
 
-          <header class="terminal-header">
-            <div class="terminal-controls">
-              <span class="dot red"></span>
-              <span class="dot yellow"></span>
-              <span class="dot green"></span>
-            </div>
-            <div class="terminal-utility">
-              <button
-                id="rabbit-btn"
-                class="icon-btn"
-                title="Follow the white rabbit..."
-              >
-                <i class="fa-solid fa-terminal"></i>
-              </button>
-            </div>
-          </header>
+            <!-- Descripción Profesional -->
+            <p class="bento-description">
+              Soy un Desarrollador de Software que crea soluciones digitales
+              multiplataforma. Mi enfoque es construir productos escalables que
+              equilibren una gran experiencia de usuario con los objetivos del
+              negocio.
+            </p>
 
-          <article class="hero__content">
-            <div class="console-output">
-              <h1 class="hero__title">
-                <span id="typed-text"></span>
-              </h1>
-              <p class="hero__subtitle">
-                Ingeniería de software con enfoque en escalabilidad e interfaces
-                disruptivas.
-              </p>
-            </div>
-            <!-- Zona de mensajes de sistema (Easter Eggs) -->
-            <div class="easter-egg-message" id="easter-egg-container"></div>
-          </article>
-        </div>
-      </section>
-
-      <!-- ============== SECTION: ARSENAL (TECH STACK) ============== -->
-      <section id="tech-stack" class="section-padding" data-aos="fade-up">
-        <div class="container">
-          <h2 class="section-title text-center">
-            <span class="accent">// STACK</span>
-          </h2>
-          <!-- Contenedor optimizado para un layout grid más senior que el actual -->
-          <div class="tech-stack__grid-v2">
-            <!-- Los items se mantienen igual estructuralmente para respetar tus JS assets, 
-               pero se estilizarán diferente en el CSS -->
-            <div class="tech-item" data-tech="Java">
-              <img
-                src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white"
-                alt="Java"
-              />
-            </div>
-            <div class="tech-item" data-tech="TypeScript">
-              <img
-                src="https://img.shields.io/badge/TypeScript-F7DF1E?style=for-the-badge&logo=typescript&logoColor=black"
-                alt="JS"
-              />
-            </div>
-            <div class="tech-item" data-tech="React">
-              <img
-                src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black"
-                alt="React"
-              />
-            </div>
-            <div class="tech-item" data-tech="Docker">
-              <img
-                src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white"
-                alt="Docker"
-              />
+            <!-- Metadatos de sistema (Log de información) -->
+            <div class="system-logs">
+              <div class="log-line">
+                <span class="accent">// ESTADO: ACTIVO</span>
+              </div>
+              <div class="log-line">
+                <span class="accent">// ESTUDIOS: ISAUI (3º AÑO)</span>
+              </div>
+              <div class="log-line">
+                <span class="accent">// ARGENTINA, CÓRDOBA</span>
+              </div>
+              <div class="log-line">
+                <span class="accent">// AGENCIA: TODONERDS</span>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- ============== SECTION: CONTACTO ============== -->
-      <section id="contacto" class="section-padding">
-        <div class="container text-center">
-          <h2 class="section-title" data-aos="fade-up">NOS HABLEMOS</h2>
-          <p class="contacto__subtitle" data-aos="fade-up">
-            Disponible para nuevos desafíos.
-          </p>
+      <!-- BLOQUE 2: Vertical alargado -->
+      <section
+        class="bento-item item-2 glass-effect terminal-frame"
+        data-aos="zoom-in"
+        data-aos-delay="100"
+      >
+        <header class="terminal-header">
+          <div class="terminal-controls">
+            <span class="dot red"></span><span class="dot yellow"></span
+            ><span class="dot green"></span>
+          </div>
+        </header>
+        <div class="bento-content">
+          <canvas class="matrix-canvas"></canvas>
+          <div class="inner-data skill-list-terminal">
+            <!-- Barra de estado -->
+            <div class="sys-meter">
+              <span class="accent">> CONOCIMIENTOS:</span>
+            </div>
+            <!-- Lenguaje 1 -->
+            <div class="skill-meter-block">
+              <div class="meter-labels">
+                <span>JAVA:</span>
+                <span class="accent">95%</span>
+              </div>
+              <div class="progress-string"><br />[▓▓▓▓▓▓▓▓▓░]</div>
+            </div>
 
-          <nav class="contacto__social" data-aos="fade-up">
-            <a
-              href="https://www.linkedin.com/in/bazzaniluca"
-              target="_blank"
-              class="social-link"
-              >LINKEDIN</a
-            >
-            <a
-              href="https://github.com/lucabazzani"
-              target="_blank"
-              class="social-link"
-              >GITHUB</a
-            >
-          </nav>
+            <!-- Lenguaje 2 -->
+            <div class="skill-meter-block">
+              <div class="meter-labels">
+                <span>TYPESCRIPT:</span>
+                <span class="accent">85%</span>
+              </div>
+              <div class="progress-string"><br />[▓▓▓▓▓▓▓▓░░]</div>
+            </div>
+
+            <!-- Lenguaje 3 -->
+            <div class="skill-meter-block">
+              <div class="meter-labels">
+                <span>JAVASCRIPT:</span>
+                <span class="accent">90%</span>
+              </div>
+              <div class="progress-string"><br />[▓▓▓▓▓▓▓▓▓░]</div>
+            </div>
+
+            <!-- Lenguaje 4 -->
+            <div class="skill-meter-block">
+              <div class="meter-labels">
+                <span>REACT:</span>
+                <span class="accent">70%</span>
+              </div>
+              <div class="progress-string"><br />[▓▓▓▓▓▓▓░░░]</div>
+            </div>
+
+            <!-- Protocolo extra -->
+            <div class="skill-meter-block">
+              <div class="meter-labels">
+                <span>ASTRO:</span>
+                <span class="accent">80%</span>
+              </div>
+              <div class="progress-string"><br />[▓▓▓▓▓▓▓▓░░]</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- BLOQUE 3: Cuadrado pequeño -->
+      <section
+        class="bento-item item-3 glass-effect terminal-frame"
+        data-aos="zoom-in"
+        data-aos-delay="200"
+      >
+        <header class="terminal-header">
+          <div class="terminal-controls">
+            <span class="dot red"></span><span class="dot yellow"></span
+            ><span class="dot green"></span>
+          </div>
+        </header>
+        <div class="bento-content">
+          <canvas class="matrix-canvas"></canvas>
+          <div class="inner-data">
+            <div class="inner-data system-monitor">
+              <div class="status-header">
+                <span class="status-dot"></span>
+                <span class="status-text">TIEMPO REAL</span>
+              </div>
+
+              <!-- El Reloj Digital -->
+              <div class="uptime-display">
+                <span id="current-time">00:00:00</span>
+              </div>
+
+              <div class="location-info">
+                <div class="info-row">
+                  <span class="label">LOC:</span>
+                  <span class="value">ARGENTINA, CÓRDOBA</span>
+                </div>
+                <div class="info-row">
+                  <span class="label">PING:</span>
+                  <span class="value" id="random-ping">12ms</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- BLOQUE 4: Horizontal ancho -->
+      <section
+        class="bento-item item-4 glass-effect terminal-frame"
+        data-aos="zoom-in"
+        data-aos-delay="300"
+      >
+        <header class="terminal-header">
+          <div class="terminal-controls">
+            <span class="dot red"></span><span class="dot yellow"></span
+            ><span class="dot green"></span>
+          </div>
+        </header>
+        <div class="bento-content">
+          <canvas class="matrix-canvas"></canvas>
+          <div class="inner-data">
+            <div class="inner-data project-terminal">
+              <!-- Título con prefijo de sistema -->
+              <div class="project-header">
+                <span class="accent">> INSPECCIONANDO: </span>
+                <span class="project-name">LUCABAZZADEV</span>
+              </div>
+
+              <!-- Info del Proyecto -->
+              <p class="project-description">Websites de Alto Impacto.</p>
+
+              <!-- Meta Datos en una sola línea -->
+              <div class="project-meta">
+                <span class="tag">#REACT</span>
+                <span class="tag">#FIREBASE</span>
+                <span class="tag">#TYPESCRIPT</span>
+              </div>
+
+              <!-- Enlace interactivo -->
+              <div class="project-footer">
+                <a
+                  href="https://lucabazzadev.web.app/"
+                  target="_blank"
+                  class="repo-link"
+                >
+                  IR A LA PÁGINA
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- BLOQUE 5: Esquina interactiva -->
+      <section
+        class="bento-item item-5 glass-effect terminal-frame"
+        data-aos="zoom-in"
+        data-aos-delay="400"
+      >
+        <header class="terminal-header">
+          <div class="terminal-controls">
+            <span class="dot red"></span><span class="dot yellow"></span
+            ><span class="dot green"></span>
+          </div>
+        </header>
+        <div class="bento-content">
+          <canvas class="matrix-canvas"></canvas>
+          <div class="inner-data">
+            <div class="inner-data comms-section">
+              <div class="comms-header">
+                <span class="accent">> INICIANDO CONEXIÓN...</span>
+                <span class="status-msg">CANALES DISPONIBLES</span>
+              </div>
+
+              <!-- Contenedor de enlaces tipo Nodos -->
+              <nav class="comms-grid">
+                <a
+                  href="https://github.com/lucabazzani"
+                  target="_blank"
+                  class="comm-node"
+                >
+                  <i class="fa-brands fa-github"></i>
+                  <div class="node-info">
+                    <span class="node-label">GITHUB</span>
+                    <span class="node-status">lucabazzani</span>
+                  </div>
+                </a>
+
+                <a
+                  href="https://www.linkedin.com/in/bazzaniluca"
+                  target="_blank"
+                  class="comm-node"
+                >
+                  <i class="fa-brands fa-linkedin-in"></i>
+                  <div class="node-info">
+                    <span class="node-label">LINKEDIN</span>
+                    <span class="node-status">bazzaniluca</span>
+                  </div>
+                </a>
+
+                <a href="mailto:luccasbazza@gmail.com" class="comm-node">
+                  <i class="fa-solid fa-envelope"></i>
+                  <div class="node-info">
+                    <span class="node-label">EMAIL</span>
+                    <span class="node-status">luccasbazza@gmail.com</span>
+                  </div>
+                </a>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- BLOQUE 6: El cierre/contacto -->
+      <section
+        class="bento-item item-6 glass-effect terminal-frame"
+        data-aos="zoom-in"
+        data-aos-delay="500"
+      >
+        <header class="terminal-header">
+          <div class="terminal-controls">
+            <span class="dot red"></span><span class="dot yellow"></span
+            ><span class="dot green"></span>
+          </div>
+        </header>
+        <div class="bento-content">
+          <canvas class="matrix-canvas"></canvas>
+          <div class="inner-data">
+            <div class="inner-data abstract-module">
+              <!-- Ocultamos la lluvia en este cuadro para que no ensucie la animación -->
+              <div class="radar-container">
+                <canvas id="radar-canvas"></canvas>
+                <div class="radar-scan"></div>
+              </div>
+              <div class="module-status">
+                <span class="accent">> ESCANEANDO...</span>
+                <span class="module-id">ID: 404 Not Found</span>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </main>
-
-    <footer class="terminal-footer">
-      <p>2026 | LUCABAZZADEV</p>
-    </footer>
 
     <!-- SCRIPTS -->
     <script
